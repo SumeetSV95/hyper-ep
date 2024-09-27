@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "/home/sv6234/ECGI/compare_models.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "debug.inlineValues": "on",
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "0"  // Optional: specify the GPU here
+            }
+        }
+    ]
+}

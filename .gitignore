@@ -1,0 +1,22 @@
+# Ignore virtual environments
+venv/
+env/
+data/
+ECGI_Pipeline/
+lightning_logs/
+results/
+/home/sv6234/ECGI/pytorch-softdtw-cuda/
+# Ignore compiled Python files
+*.pyc
+__pycache__/
+
+# Ignore large files (e.g., logs, temporary files)
+*.log
+*.tmp
+
+# Ignore specific file types
+*.jpg
+*.png
+*.ckpt
+*.pt
+*.zip
