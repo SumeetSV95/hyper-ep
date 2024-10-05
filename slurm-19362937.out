@@ -1,0 +1,31 @@
+Folder already exists at: /home/sv6234/ECGI/results/compare_all_1/
+Folder already exists at: /home/sv6234/ECGI/results/compare_all_1/internal/
+Folder already exists at: /home/sv6234/ECGI/results/compare_all_1/surface/
+Traceback (most recent call last):
+  File "/shared/rc/hyper-ep/hyper-ep/utils/compare_models.py", line 46, in <module>
+    model2 = HybridModel.load_from_checkpoint("/home/sv6234/ECGI/checkHybrid_TMP_Full_seed_1250/best-model-epoch=09-val_loss=0.011.ckpt").to(device)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/utilities/model_helpers.py", line 100, in wrapper
+    return self.method(cls, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/core/module.py", line 1561, in load_from_checkpoint
+    loaded = _load_from_checkpoint(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/core/saving.py", line 61, in _load_from_checkpoint
+    checkpoint = pl_load(checkpoint_path, map_location=map_location)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/fabric/utilities/cloud_io.py", line 55, in _load
+    with fs.open(path_or_url, "rb") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/fsspec/spec.py", line 1293, in open
+    f = self._open(
+        ^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/fsspec/implementations/local.py", line 184, in _open
+    return LocalFileOpener(path, mode, fs=self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/fsspec/implementations/local.py", line 306, in __init__
+    self._open()
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/fsspec/implementations/local.py", line 311, in _open
+    self.f = open(self.path, mode=self.mode)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/sv6234/ECGI/checkHybrid_TMP_Full_seed_1250/best-model-epoch=09-val_loss=0.011.ckpt'

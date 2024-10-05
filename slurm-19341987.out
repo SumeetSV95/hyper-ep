@@ -1,0 +1,91 @@
+/shared/rc/hyper-ep/hyper-ep/main.py:56: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /opt/conda/conda-bld/pytorch_1682343995622/work/torch/csrc/utils/tensor_new.cpp:245.)
+  ids=torch.tensor(ids).to(device)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA A100-PCIE-40GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name       | Type        | Params
+-------------------------------------------
+0 | metaNet    | MetaNet_new | 2.2 K 
+1 | contextEnc | ResNet1D    | 4.3 M 
+2 | ode        | APModel_uv  | 2.2 K 
+3 | sdtw       | SoftDTW     | 0     
+-------------------------------------------
+4.3 M     Trainable params
+0         Non-trainable params
+4.3 M     Total params
+17.390    Total estimated model params size (MB)
+SLURM auto-requeueing enabled. Setting signal handlers.
+/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py:293: The number of training batches (5) is smaller than the logging interval Trainer(log_every_n_steps=50). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+Folder already exists at: /home/sv6234/ECGI/checkHybrid_sur_out_weighted
+0
+Using ResNet
+Training: |          | 0/? [00:00<?, ?it/s]Training:   0%|          | 0/5 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/5 [00:00<?, ?it/s] /home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/modules/conv.py:309: UserWarning: Applied workaround for CuDNN issue, install nvrtc.so (Triggered internally at /opt/conda/conda-bld/pytorch_1682343995622/work/aten/src/ATen/native/cudnn/Conv_v8.cpp:80.)
+  return F.conv1d(input, weight, bias, self.stride,
+torch.Size([8, 2238]) torch.Size([8, 117, 1119]) torch.Size([8, 10, 117, 1119]) torch.Size([8])
+torch.Size([80, 117, 1119])
+--- 45.60824012756348 seconds ---
+Epoch 0:  20%|██        | 1/5 [02:14<08:56,  0.01it/s]Epoch 0:  20%|██        | 1/5 [02:14<08:56,  0.01it/s, v_num=11, train=0.551, par=0.000781, 3D signal=0.551, AP_loss=0.551]torch.Size([8, 2238]) torch.Size([8, 117, 1119]) torch.Size([8, 10, 117, 1119]) torch.Size([8])
+torch.Size([80, 117, 1119])
+--- 40.744078159332275 seconds ---
+Epoch 0:  40%|████      | 2/5 [04:14<06:21,  0.01it/s, v_num=11, train=0.551, par=0.000781, 3D signal=0.551, AP_loss=0.551]Epoch 0:  40%|████      | 2/5 [04:14<06:21,  0.01it/s, v_num=11, train=0.489, par=0.00262, 3D signal=0.489, AP_loss=0.489] torch.Size([8, 2238]) torch.Size([8, 117, 1119]) torch.Size([8, 10, 117, 1119]) torch.Size([8])
+torch.Size([80, 117, 1119])
+--- 49.936577796936035 seconds ---
+Epoch 0:  60%|██████    | 3/5 [06:40<04:26,  0.01it/s, v_num=11, train=0.489, par=0.00262, 3D signal=0.489, AP_loss=0.489]Epoch 0:  60%|██████    | 3/5 [06:40<04:26,  0.01it/s, v_num=11, train=0.376, par=0.00228, 3D signal=0.376, AP_loss=0.376]torch.Size([8, 2238]) torch.Size([8, 117, 1119]) torch.Size([8, 10, 117, 1119]) torch.Size([8])
+torch.Size([80, 117, 1119])
+--- 47.09304857254028 seconds ---
+Epoch 0:  80%|████████  | 4/5 [08:57<02:14,  0.01it/s, v_num=11, train=0.376, par=0.00228, 3D signal=0.376, AP_loss=0.376]Epoch 0:  80%|████████  | 4/5 [08:57<02:14,  0.01it/s, v_num=11, train=0.437, par=0.000548, 3D signal=0.437, AP_loss=0.437]torch.Size([8, 2238]) torch.Size([8, 117, 1119]) torch.Size([8, 10, 117, 1119]) torch.Size([8])
+torch.Size([80, 117, 1119])
+--- 47.369816064834595 seconds ---
+Epoch 0: 100%|██████████| 5/5 [11:10<00:00,  0.01it/s, v_num=11, train=0.437, par=0.000548, 3D signal=0.437, AP_loss=0.437]Epoch 0: 100%|██████████| 5/5 [11:10<00:00,  0.01it/s, v_num=11, train=0.409, par=0.0016, 3D signal=0.409, AP_loss=0.409]  
+Validation: |          | 0/? [00:00<?, ?it/s][A
+Validation:   0%|          | 0/13 [00:00<?, ?it/s][A
+Validation DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s][ATraceback (most recent call last):
+  File "/shared/rc/hyper-ep/hyper-ep/main.py", line 161, in <module>
+    main()
+  File "/shared/rc/hyper-ep/hyper-ep/main.py", line 157, in main
+    trainer.fit(model,train_loader, valid_loader)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/trainer.py", line 544, in fit
+    call._call_and_handle_interrupt(
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/call.py", line 44, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/trainer.py", line 580, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/trainer.py", line 989, in _run
+    results = self._run_stage()
+              ^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/trainer.py", line 1035, in _run_stage
+    self.fit_loop.run()
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py", line 202, in run
+    self.advance()
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py", line 359, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 137, in run
+    self.on_advance_end(data_fetcher)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 285, in on_advance_end
+    self.val_loop.run()
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/utilities.py", line 182, in _decorator
+    return loop_run(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/evaluation_loop.py", line 134, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx, dataloader_iter)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/evaluation_loop.py", line 391, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/call.py", line 309, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/strategies/strategy.py", line 403, in validation_step
+    return self.lightning_module.validation_step(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/rc/hyper-ep/hyper-ep/model.py", line 547, in validation_step
+    UV, y, k, a = train_batch
+    ^^^^^^^^^^^
+ValueError: too many values to unpack (expected 4)
+Epoch 0: 100%|██████████| 5/5 [11:15<00:00,  0.01it/s, v_num=11, train=0.409, par=0.0016, 3D signal=0.409, AP_loss=0.409]
+
+                                                               [A

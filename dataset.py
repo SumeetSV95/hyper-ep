@@ -8,6 +8,7 @@ import random
 from torch.utils.data import Sampler
 import random
 import math
+import scipy.io
 
 device = 'cuda:0'
 class TMPDataset(Dataset):
@@ -183,12 +184,12 @@ class TMPDatasetEQ(Dataset):
         return (data, label, k_label, torch.tensor(a),idx)
     
     def split(self):
-        lis = list(range(1856))  # Assuming 1856 is the total number of data points
-        k_shot = np.random.choice(lis, 96, replace=False)
+        lis = list(range(1119))  # Assuming 1856 is the total number of data points
+        k_shot = np.random.choice(lis, 56, replace=False)
         
         data_idx = []
         num_classes = 4
-        samples_per_class = (1856 - len(k_shot)) // num_classes
+        samples_per_class = (1119 - len(k_shot)) // num_classes
         
         for val in range(1, num_classes + 1):
             class_indices = [i for i in lis if i not in k_shot]
@@ -196,7 +197,7 @@ class TMPDatasetEQ(Dataset):
                 raise ValueError(f"Not enough data points to assign {samples_per_class} samples to class {val}.")
             selected_indices = random.sample(class_indices, samples_per_class)
             data_idx.extend([(i, val) for i in selected_indices])
-            lis = [i for i in lis if i not in selected_indices]
+            #lis = [i for i in lis if i not in selected_indices]
         
         return data_idx, k_shot
     
@@ -267,11 +268,14 @@ if __name__=="__main__":
     def read_matrix(file_name):
         return np.fromfile(file_name)
     
-    H = read_matrix('/home/sv6234/ECGI/data/EC/Trans.bin')
-    H = torch.from_numpy(H.reshape(396, 1862)).to(torch.float32).to(device)
-    dataset = TMPDatasetEQ("/home/sv6234/ECGI/data/TMP_data_UV_new/", "/home/sv6234/ECGI/data/TMP_data_GT_new/", 15, H)
-    
-    train_set, test_set = random_split(dataset, [1408, 352])
+    #H = read_matrix('/home/sv6234/ECGI/data/EC/Trans.bin')
+    #H = torch.from_numpy(H.reshape(396, 1862)).to(torch.float32).to(device)
+    mat = scipy.io.loadmat('H_Trans_new.mat')
+    mat = mat['H']
+    H=torch.from_numpy(mat).float().to(device)
+    dataset = TMPDatasetEQ("/home/sv6234/hyper-ep/data/TMP_data_UV_new/", "/home/sv6234/hyper-ep/data/TMP_data_GT_new/", 10, H)
+    print(len(dataset))
+    train_set, test_set = random_split(dataset, [848, 212])
     
     # Using the custom sampler
     num_classes = 4

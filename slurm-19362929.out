@@ -1,0 +1,27 @@
+Folder created at: /home/sv6234/ECGI/results/compare_all_1/
+Folder created at: /home/sv6234/ECGI/results/compare_all_1/internal/
+Folder created at: /home/sv6234/ECGI/results/compare_all_1/surface/
+Traceback (most recent call last):
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/scipy/io/matlab/_mio.py", line 39, in _open_file
+    return open(file_like, mode), True
+           ^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/sv6234/ECGI/S_Trans.mat'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/shared/rc/hyper-ep/hyper-ep/utils/compare_models.py", line 34, in <module>
+    mat = scipy.io.loadmat('/home/sv6234/ECGI/S_Trans.mat')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/scipy/io/matlab/_mio.py", line 225, in loadmat
+    with _open_file_context(file_name, appendmat) as f:
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/scipy/io/matlab/_mio.py", line 17, in _open_file_context
+    f, opened = _open_file(file_like, appendmat, mode)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/scipy/io/matlab/_mio.py", line 45, in _open_file
+    return open(file_like, mode), True
+           ^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/sv6234/ECGI/S_Trans.mat'

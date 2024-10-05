@@ -1,0 +1,101 @@
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA A100-PCIE-40GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+Testing: |          | 0/? [00:00<?, ?it/s]Testing:   0%|          | 0/13 [00:00<?, ?it/s]Testing DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/modules/conv.py:309: UserWarning: Applied workaround for CuDNN issue, install nvrtc.so (Triggered internally at /opt/conda/conda-bld/pytorch_1682343995622/work/aten/src/ATen/native/cudnn/Conv_v8.cpp:80.)
+  return F.conv1d(input, weight, bias, self.stride,
+torch.Size([16, 2238]) torch.Size([16, 117, 1119]) torch.Size([16, 10, 117, 1119]) torch.Size([16])
+Testing DataLoader 0:   8%|▊         | 1/13 [01:03<12:40,  0.02it/s]torch.Size([16, 2238]) torch.Size([16, 117, 1119]) torch.Size([16, 10, 117, 1119]) torch.Size([16])
+Testing DataLoader 0:  15%|█▌        | 2/13 [02:21<12:59,  0.01it/s]torch.Size([16, 2238]) torch.Size([16, 117, 1119]) torch.Size([16, 10, 117, 1119]) torch.Size([16])
+Testing DataLoader 0:  23%|██▎       | 3/13 [03:33<11:52,  0.01it/s]torch.Size([16, 2238]) torch.Size([16, 117, 1119]) torch.Size([16, 10, 117, 1119]) torch.Size([16])
+Testing DataLoader 0:  31%|███       | 4/13 [04:43<10:38,  0.01it/s]torch.Size([16, 2238]) torch.Size([16, 117, 1119]) torch.Size([16, 10, 117, 1119]) torch.Size([16])
+Testing DataLoader 0:  38%|███▊      | 5/13 [05:51<09:23,  0.01it/s]torch.Size([16, 2238]) torch.Size([16, 117, 1119]) torch.Size([16, 10, 117, 1119]) torch.Size([16])
+Testing DataLoader 0:  46%|████▌     | 6/13 [06:58<08:08,  0.01it/s]torch.Size([16, 2238]) torch.Size([16, 117, 1119]) torch.Size([16, 10, 117, 1119]) torch.Size([16])
+Testing DataLoader 0:  54%|█████▍    | 7/13 [08:06<06:56,  0.01it/s]torch.Size([16, 2238]) torch.Size([16, 117, 1119]) torch.Size([16, 10, 117, 1119]) torch.Size([16])
+Testing DataLoader 0:  62%|██████▏   | 8/13 [09:12<05:45,  0.01it/s]torch.Size([16, 2238]) torch.Size([16, 117, 1119]) torch.Size([16, 10, 117, 1119]) torch.Size([16])
+Testing DataLoader 0:  69%|██████▉   | 9/13 [10:18<04:35,  0.01it/s]torch.Size([16, 2238]) torch.Size([16, 117, 1119]) torch.Size([16, 10, 117, 1119]) torch.Size([16])
+Testing DataLoader 0:  77%|███████▋  | 10/13 [11:24<03:25,  0.01it/s]torch.Size([16, 2238]) torch.Size([16, 117, 1119]) torch.Size([16, 10, 117, 1119]) torch.Size([16])
+Testing DataLoader 0:  85%|████████▍ | 11/13 [12:30<02:16,  0.01it/s]torch.Size([16, 2238]) torch.Size([16, 117, 1119]) torch.Size([16, 10, 117, 1119]) torch.Size([16])
+Testing DataLoader 0:  92%|█████████▏| 12/13 [13:37<01:08,  0.01it/s]torch.Size([16, 2238]) torch.Size([16, 117, 1119]) torch.Size([16, 10, 117, 1119]) torch.Size([16])
+Testing DataLoader 0: 100%|██████████| 13/13 [14:43<00:00,  0.01it/s]Testing DataLoader 0: 100%|██████████| 13/13 [14:43<00:00,  0.01it/s]
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+       Test metric             DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+0.07999999821186066_mean    0.12715449486023342
+ 0.07999999821186066_std  0.00046728453825689814
+      0.08_act_loss         1.5618306398391724
+      0.08_act_std           1.697057843208313
+     0.08_param_loss       0.0022238779347389936
+ 0.08_tmp_loss_internal     0.01187869068235159
+  0.08_tmp_loss_surface     0.01221648883074522
+  0.08_tmp_std_internal     0.10547277331352234
+  0.08_tmp_std_surface      0.10700166970491409
+0.10000000149011612_mean    0.13591264421359087
+ 0.10000000149011612_std  0.00025520310806872147
+0.11999999731779099_mean    0.1462678520916364
+ 0.11999999731779099_std   0.000351865823433856
+      0.12_act_loss          1.151200771331787
+      0.12_act_std          0.9877825975418091
+     0.12_param_loss       0.0006902037421241403
+ 0.12_tmp_loss_internal     0.00459656398743391
+  0.12_tmp_loss_surface    0.0046166847459971905
+  0.12_tmp_std_internal     0.06684750318527222
+  0.12_tmp_std_surface      0.06708412617444992
+0.14000000059604645_mean    0.15841813168655605
+ 0.14000000059604645_std   0.0013591173004664353
+      0.14_act_loss         1.1601938009262085
+      0.14_act_std          1.3147563934326172
+     0.14_param_loss       0.0003420224238652736
+ 0.14_tmp_loss_internal     0.00537466537207365
+  0.14_tmp_loss_surface    0.005375323351472616
+  0.14_tmp_std_internal     0.0706852599978447
+  0.14_tmp_std_surface      0.07088885456323624
+      0.1_act_loss          0.8789739012718201
+       0.1_act_std          0.9237754344940186
+     0.1_param_loss        0.0012898186687380075
+  0.1_tmp_loss_internal    0.005870155058801174
+  0.1_tmp_loss_surface     0.006117936689406633
+  0.1_tmp_std_internal      0.07644020020961761
+   0.1_tmp_std_surface      0.07794502377510071
+           act               3.801445484161377
+         act_std            6.0057196617126465
+           end              1.1807202100753784
+         end_std            1.3765767812728882
+      internal_loss        0.006971697323024273
+       param_loss          0.0011381796794012189
+          start              3.118997812271118
+        start_std            5.785460472106934
+           std              0.08366675674915314
+        std_param          0.011056105606257915
+      surface_loss         0.007110666949301958
+          test             0.007030936423689127
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Main Table:
+                     Value
+test        tensor(0.0070)
+param_loss  tensor(0.0011)
+std         tensor(0.0837)
+std_param   tensor(0.0111)
+act         tensor(3.8014)
+start       tensor(3.1190)
+end         tensor(1.1807)
+act_std     tensor(6.0057)
+start_std   tensor(5.7855)
+end_std     tensor(1.3766)
+
+Activation Length Loss Table:
+                        Value
+0.12_act_loss  tensor(1.1512)
+0.14_act_loss  tensor(1.1602)
+0.08_act_loss  tensor(1.5618)
+0.1_act_loss   tensor(0.8790)
+
+Parameter Loss Table:
+                          Value
+0.12_param_loss  tensor(0.0007)
+0.14_param_loss  tensor(0.0003)
+0.08_param_loss  tensor(0.0022)
+0.1_param_loss   tensor(0.0013)

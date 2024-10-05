@@ -14,7 +14,7 @@ import scipy.io
 
 
 
-def generate_batch(start, end, batch_size):
+def generate_batch(start, end, batch_size,dimD):
     batch=torch.from_numpy(np.zeros((batch_size,dimD*2))).to(torch.float32).to(device)
     j=0
     for i in range(start, end):
@@ -25,18 +25,19 @@ def generate_batch(start, end, batch_size):
 batch_size = 32    
 uv_path = "/home/sv6234/ECGI/data/TMP_data_UV_new/1.3/"
 data_path = "/home/sv6234/ECGI/data/TMP_data_GT_new/1.3/"
-dimD = 1862
+dimD = 1119
 device = 'cuda:0'
 #max = 0.16
 
-mat = scipy.io.loadmat('/home/sv6234/ECGI/S_Trans.mat')
+mat = scipy.io.loadmat('S_Trans_new.mat')
 mat = mat['S']
 S=torch.from_numpy(mat).float().to(device)
-t=torch.from_numpy(np.zeros(375)).to(torch.float32).to(device)
+#t=torch.from_numpy(np.zeros(375)).to(torch.float32).to(device)
+t=torch.from_numpy(np.linspace(0,350,117)).to(device)
 val=0
-for i in range(375):
+"""for i in range(375):
     t[i] = val
-    val += 0.9
+    val += 0.9"""
 
 
 for k in range(8,18,2):
@@ -44,24 +45,24 @@ for k in range(8,18,2):
     print("this is k")
     print(k)
     k = k/100
-    folder_path = "/home/sv6234/ECGI/data/TMP_data_UV_new/"+str(k)+"/"
+    folder_path = "/home/sv6234/hyper-ep/data/TMP_data_UV_new/"+str(k)+"/"
     os.makedirs(folder_path, exist_ok=True)
-    folder_path="/home/sv6234/ECGI/data/TMP_data_GT_new/"+str(k)+"/"
+    folder_path="/home/sv6234/hyper-ep/data/TMP_data_GT_new/"+str(k)+"/"
     os.makedirs(folder_path, exist_ok=True)
-    uv_path = "/home/sv6234/ECGI/data/TMP_data_UV_new/"+str(k)+"/"
-    data_path = "/home/sv6234/ECGI/data/TMP_data_GT_new/"+str(k)+"/"
+    uv_path = "/home/sv6234/hyper-ep/data/TMP_data_UV_new/"+str(k)+"/"
+    data_path = "/home/sv6234/hyper-ep/data/TMP_data_GT_new/"+str(k)+"/"
     if not os.path.exists(uv_path):
         Path(uv_path).mkdir()
         Path(data_path).mkdir()    
-    par = torch.from_numpy(np.full((1862,1),k)).float().to(device)
+    par = torch.from_numpy(np.full((dimD,1),k)).float().to(device)
     #par = torch.from_numpy(np.full((1862,1),0.15)).float().to(device)
     model=APModel(S, par,batch_size,dimD)
-    for i in range(0,1856,batch_size):
+    for i in range(0,1104,batch_size):
     #for i in range(0,64,batch_size):
         print(i)
         start = i
         end = i+batch_size
-        batch=generate_batch(start,end,batch_size)
+        batch=generate_batch(start,end,batch_size,dimD)
         t0 = time.time()
         y=odeint(model, batch, t, method='dopri5')
         print('{} seconds'.format(time.time() - t0))  

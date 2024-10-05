@@ -10,16 +10,16 @@ from torchdiffeq import odeint_adjoint as odeint
 import matplotlib.font_manager as font_manager
 from lightning.pytorch import Trainer
 
-dimD = 1862
+dimD = 1119
 
 batch_size =16
 exp_num = '1'
 device = 'cuda:0'
 model_choise = 'nn'
 
-model2 = HybridModel.load_from_checkpoint("/home/sv6234/ECGI/checkHybrid_EGM_in/best-model-epoch=18-val_loss=0.008.ckpt").to(device)
-test_loader=torch.load('/home/sv6234/ECGI/test_loader_checkHybrid_EGM_in.pt')
-trainer = Trainer(default_root_dir='',limit_train_batches=int(1056/batch_size),limit_val_batches=15,max_epochs=3,accelerator='gpu', devices=1,
+model2 = HybridModel.load_from_checkpoint("/home/sv6234/ECGI/checkHybrid_sur_in_sur_out/best-model-epoch=17-val_loss=0.010.ckpt").to(device)
+test_loader=torch.load('/shared/rc/hyper-ep/hyper-ep/test_loader_checkHybrid_TMP_full.pt')
+trainer = Trainer(default_root_dir='',limit_train_batches=int(636/batch_size),limit_val_batches=15,limit_test_batches=13,max_epochs=3,accelerator='gpu', devices=1,
                         num_sanity_val_steps=0)
 trainer.test(model2, dataloaders=test_loader)
 

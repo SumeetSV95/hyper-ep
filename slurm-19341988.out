@@ -1,0 +1,116 @@
+/shared/rc/hyper-ep/hyper-ep/main.py:56: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /opt/conda/conda-bld/pytorch_1682343995622/work/torch/csrc/utils/tensor_new.cpp:245.)
+  ids=torch.tensor(ids).to(device)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA A100-PCIE-40GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name       | Type        | Params
+-------------------------------------------
+0 | metaNet    | MetaNet_new | 2.2 K 
+1 | contextEnc | ResNet1D    | 4.3 M 
+2 | ode        | APModel_uv  | 2.2 K 
+3 | sdtw       | SoftDTW     | 0     
+-------------------------------------------
+4.3 M     Trainable params
+0         Non-trainable params
+4.3 M     Total params
+17.390    Total estimated model params size (MB)
+SLURM auto-requeueing enabled. Setting signal handlers.
+/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py:293: The number of training batches (39) is smaller than the logging interval Trainer(log_every_n_steps=50). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+Folder already exists at: /home/sv6234/ECGI/checkHybrid_sur_out_weighted
+0
+Training: |          | 0/? [00:00<?, ?it/s]Training:   0%|          | 0/39 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/39 [00:00<?, ?it/s] /home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/modules/conv.py:309: UserWarning: Applied workaround for CuDNN issue, install nvrtc.so (Triggered internally at /opt/conda/conda-bld/pytorch_1682343995622/work/aten/src/ATen/native/cudnn/Conv_v8.cpp:80.)
+  return F.conv1d(input, weight, bias, self.stride,
+--- 39.23098397254944 seconds ---
+Epoch 0:   3%|▎         | 1/39 [02:10<1:22:26,  0.01it/s]Epoch 0:   3%|▎         | 1/39 [02:10<1:22:26,  0.01it/s, v_num=12, train=0.450, par=0.000931, 3D signal=0.450, AP_loss=0.450]--- 35.60120987892151 seconds ---
+Epoch 0:   5%|▌         | 2/39 [04:04<1:15:25,  0.01it/s, v_num=12, train=0.450, par=0.000931, 3D signal=0.450, AP_loss=0.450]Epoch 0:   5%|▌         | 2/39 [04:04<1:15:26,  0.01it/s, v_num=12, train=0.525, par=0.000568, 3D signal=0.525, AP_loss=0.525]--- 37.927836418151855 seconds ---
+Epoch 0:   8%|▊         | 3/39 [06:00<1:12:03,  0.01it/s, v_num=12, train=0.525, par=0.000568, 3D signal=0.525, AP_loss=0.525]Epoch 0:   8%|▊         | 3/39 [06:00<1:12:03,  0.01it/s, v_num=12, train=0.401, par=0.00056, 3D signal=0.401, AP_loss=0.401] --- 37.77729654312134 seconds ---
+Epoch 0:  10%|█         | 4/39 [07:50<1:08:40,  0.01it/s, v_num=12, train=0.401, par=0.00056, 3D signal=0.401, AP_loss=0.401]Epoch 0:  10%|█         | 4/39 [07:50<1:08:40,  0.01it/s, v_num=12, train=0.387, par=0.000989, 3D signal=0.387, AP_loss=0.387]--- 37.374717712402344 seconds ---
+Epoch 0:  13%|█▎        | 5/39 [09:40<1:05:44,  0.01it/s, v_num=12, train=0.387, par=0.000989, 3D signal=0.387, AP_loss=0.387]Epoch 0:  13%|█▎        | 5/39 [09:40<1:05:44,  0.01it/s, v_num=12, train=0.435, par=0.000817, 3D signal=0.435, AP_loss=0.435]--- 37.83543157577515 seconds ---
+Epoch 0:  15%|█▌        | 6/39 [11:30<1:03:17,  0.01it/s, v_num=12, train=0.435, par=0.000817, 3D signal=0.435, AP_loss=0.435]Epoch 0:  15%|█▌        | 6/39 [11:30<1:03:17,  0.01it/s, v_num=12, train=0.375, par=0.000227, 3D signal=0.375, AP_loss=0.375]--- 37.219303607940674 seconds ---
+Epoch 0:  18%|█▊        | 7/39 [13:18<1:00:50,  0.01it/s, v_num=12, train=0.375, par=0.000227, 3D signal=0.375, AP_loss=0.375]Epoch 0:  18%|█▊        | 7/39 [13:18<1:00:50,  0.01it/s, v_num=12, train=0.388, par=0.000433, 3D signal=0.388, AP_loss=0.388]--- 35.78864550590515 seconds ---
+Epoch 0:  21%|██        | 8/39 [15:02<58:18,  0.01it/s, v_num=12, train=0.388, par=0.000433, 3D signal=0.388, AP_loss=0.388]  Epoch 0:  21%|██        | 8/39 [15:02<58:18,  0.01it/s, v_num=12, train=0.341, par=0.000221, 3D signal=0.341, AP_loss=0.341]--- 35.5662305355072 seconds ---
+Epoch 0:  23%|██▎       | 9/39 [16:45<55:52,  0.01it/s, v_num=12, train=0.341, par=0.000221, 3D signal=0.341, AP_loss=0.341]Epoch 0:  23%|██▎       | 9/39 [16:45<55:52,  0.01it/s, v_num=12, train=0.365, par=0.000279, 3D signal=0.365, AP_loss=0.365]--- 36.96380972862244 seconds ---
+Epoch 0:  26%|██▌       | 10/39 [18:32<53:46,  0.01it/s, v_num=12, train=0.365, par=0.000279, 3D signal=0.365, AP_loss=0.365]Epoch 0:  26%|██▌       | 10/39 [18:32<53:46,  0.01it/s, v_num=12, train=0.336, par=0.000296, 3D signal=0.336, AP_loss=0.336]--- 37.28230023384094 seconds ---
+Epoch 0:  28%|██▊       | 11/39 [20:20<51:47,  0.01it/s, v_num=12, train=0.336, par=0.000296, 3D signal=0.336, AP_loss=0.336]Epoch 0:  28%|██▊       | 11/39 [20:20<51:47,  0.01it/s, v_num=12, train=0.364, par=0.000238, 3D signal=0.364, AP_loss=0.364]--- 37.26251006126404 seconds ---
+Epoch 0:  31%|███       | 12/39 [22:09<49:50,  0.01it/s, v_num=12, train=0.364, par=0.000238, 3D signal=0.364, AP_loss=0.364]Epoch 0:  31%|███       | 12/39 [22:09<49:50,  0.01it/s, v_num=12, train=0.352, par=0.000274, 3D signal=0.352, AP_loss=0.352]--- 37.05274152755737 seconds ---
+Epoch 0:  33%|███▎      | 13/39 [23:56<47:53,  0.01it/s, v_num=12, train=0.352, par=0.000274, 3D signal=0.352, AP_loss=0.352]Epoch 0:  33%|███▎      | 13/39 [23:56<47:53,  0.01it/s, v_num=12, train=0.282, par=0.000228, 3D signal=0.282, AP_loss=0.282]--- 36.786863803863525 seconds ---
+Epoch 0:  36%|███▌      | 14/39 [25:43<45:56,  0.01it/s, v_num=12, train=0.282, par=0.000228, 3D signal=0.282, AP_loss=0.282]Epoch 0:  36%|███▌      | 14/39 [25:43<45:56,  0.01it/s, v_num=12, train=0.375, par=0.000511, 3D signal=0.375, AP_loss=0.375]--- 36.02235174179077 seconds ---
+Epoch 0:  38%|███▊      | 15/39 [27:28<43:56,  0.01it/s, v_num=12, train=0.375, par=0.000511, 3D signal=0.375, AP_loss=0.375]Epoch 0:  38%|███▊      | 15/39 [27:28<43:56,  0.01it/s, v_num=12, train=0.448, par=0.000718, 3D signal=0.448, AP_loss=0.448]--- 35.97633385658264 seconds ---
+Epoch 0:  41%|████      | 16/39 [29:12<41:59,  0.01it/s, v_num=12, train=0.448, par=0.000718, 3D signal=0.448, AP_loss=0.448]Epoch 0:  41%|████      | 16/39 [29:12<41:59,  0.01it/s, v_num=12, train=0.384, par=0.000633, 3D signal=0.384, AP_loss=0.384]--- 36.4265251159668 seconds ---
+Epoch 0:  44%|████▎     | 17/39 [30:58<40:05,  0.01it/s, v_num=12, train=0.384, par=0.000633, 3D signal=0.384, AP_loss=0.384]Epoch 0:  44%|████▎     | 17/39 [30:58<40:05,  0.01it/s, v_num=12, train=0.356, par=0.00103, 3D signal=0.356, AP_loss=0.356] --- 36.41536068916321 seconds ---
+Epoch 0:  46%|████▌     | 18/39 [32:44<38:12,  0.01it/s, v_num=12, train=0.356, par=0.00103, 3D signal=0.356, AP_loss=0.356]Epoch 0:  46%|████▌     | 18/39 [32:44<38:12,  0.01it/s, v_num=12, train=0.318, par=0.000643, 3D signal=0.318, AP_loss=0.318]--- 36.35793662071228 seconds ---
+Epoch 0:  49%|████▊     | 19/39 [34:34<36:24,  0.01it/s, v_num=12, train=0.318, par=0.000643, 3D signal=0.318, AP_loss=0.318]Epoch 0:  49%|████▊     | 19/39 [34:34<36:24,  0.01it/s, v_num=12, train=0.348, par=0.000534, 3D signal=0.348, AP_loss=0.348]--- 35.87628197669983 seconds ---
+Epoch 0:  51%|█████▏    | 20/39 [36:19<34:30,  0.01it/s, v_num=12, train=0.348, par=0.000534, 3D signal=0.348, AP_loss=0.348]Epoch 0:  51%|█████▏    | 20/39 [36:19<34:30,  0.01it/s, v_num=12, train=0.305, par=0.000548, 3D signal=0.305, AP_loss=0.305]--- 35.25971961021423 seconds ---
+Epoch 0:  54%|█████▍    | 21/39 [38:01<32:35,  0.01it/s, v_num=12, train=0.305, par=0.000548, 3D signal=0.305, AP_loss=0.305]Epoch 0:  54%|█████▍    | 21/39 [38:01<32:35,  0.01it/s, v_num=12, train=0.298, par=0.000296, 3D signal=0.298, AP_loss=0.298]--- 34.59699106216431 seconds ---
+Epoch 0:  56%|█████▋    | 22/39 [39:42<30:41,  0.01it/s, v_num=12, train=0.298, par=0.000296, 3D signal=0.298, AP_loss=0.298]Epoch 0:  56%|█████▋    | 22/39 [39:42<30:41,  0.01it/s, v_num=12, train=0.271, par=0.000307, 3D signal=0.271, AP_loss=0.271]--- 34.705082178115845 seconds ---
+Epoch 0:  59%|█████▉    | 23/39 [41:28<28:51,  0.01it/s, v_num=12, train=0.271, par=0.000307, 3D signal=0.271, AP_loss=0.271]Epoch 0:  59%|█████▉    | 23/39 [41:28<28:51,  0.01it/s, v_num=12, train=0.244, par=0.000683, 3D signal=0.244, AP_loss=0.244]--- 31.729674577713013 seconds ---
+Epoch 0:  62%|██████▏   | 24/39 [43:00<26:52,  0.01it/s, v_num=12, train=0.244, par=0.000683, 3D signal=0.244, AP_loss=0.244]Epoch 0:  62%|██████▏   | 24/39 [43:00<26:52,  0.01it/s, v_num=12, train=0.284, par=0.000318, 3D signal=0.284, AP_loss=0.284]--- 32.086384296417236 seconds ---
+Epoch 0:  64%|██████▍   | 25/39 [44:33<24:57,  0.01it/s, v_num=12, train=0.284, par=0.000318, 3D signal=0.284, AP_loss=0.284]Epoch 0:  64%|██████▍   | 25/39 [44:33<24:57,  0.01it/s, v_num=12, train=0.291, par=0.00066, 3D signal=0.291, AP_loss=0.291] --- 34.66729784011841 seconds ---
+Epoch 0:  67%|██████▋   | 26/39 [46:13<23:06,  0.01it/s, v_num=12, train=0.291, par=0.00066, 3D signal=0.291, AP_loss=0.291]Epoch 0:  67%|██████▋   | 26/39 [46:13<23:06,  0.01it/s, v_num=12, train=0.220, par=0.000742, 3D signal=0.220, AP_loss=0.220]--- 41.06804800033569 seconds ---
+Epoch 0:  69%|██████▉   | 27/39 [48:13<21:25,  0.01it/s, v_num=12, train=0.220, par=0.000742, 3D signal=0.220, AP_loss=0.220]Epoch 0:  69%|██████▉   | 27/39 [48:13<21:26,  0.01it/s, v_num=12, train=0.218, par=0.000363, 3D signal=0.218, AP_loss=0.218]--- 34.34755539894104 seconds ---
+Epoch 0:  72%|███████▏  | 28/39 [49:53<19:35,  0.01it/s, v_num=12, train=0.218, par=0.000363, 3D signal=0.218, AP_loss=0.218]Epoch 0:  72%|███████▏  | 28/39 [49:53<19:35,  0.01it/s, v_num=12, train=0.219, par=0.000439, 3D signal=0.219, AP_loss=0.219]--- 39.84309458732605 seconds ---
+Epoch 0:  74%|███████▍  | 29/39 [51:49<17:52,  0.01it/s, v_num=12, train=0.219, par=0.000439, 3D signal=0.219, AP_loss=0.219]Epoch 0:  74%|███████▍  | 29/39 [51:49<17:52,  0.01it/s, v_num=12, train=0.308, par=0.000522, 3D signal=0.308, AP_loss=0.308]--- 31.915674686431885 seconds ---
+Epoch 0:  77%|███████▋  | 30/39 [53:23<16:00,  0.01it/s, v_num=12, train=0.308, par=0.000522, 3D signal=0.308, AP_loss=0.308]Epoch 0:  77%|███████▋  | 30/39 [53:23<16:00,  0.01it/s, v_num=12, train=0.214, par=0.000401, 3D signal=0.214, AP_loss=0.214]--- 37.27195930480957 seconds ---
+Epoch 0:  79%|███████▉  | 31/39 [55:11<14:14,  0.01it/s, v_num=12, train=0.214, par=0.000401, 3D signal=0.214, AP_loss=0.214]Epoch 0:  79%|███████▉  | 31/39 [55:11<14:14,  0.01it/s, v_num=12, train=0.268, par=0.000164, 3D signal=0.268, AP_loss=0.268]--- 38.12440776824951 seconds ---
+Epoch 0:  82%|████████▏ | 32/39 [57:01<12:28,  0.01it/s, v_num=12, train=0.268, par=0.000164, 3D signal=0.268, AP_loss=0.268]Epoch 0:  82%|████████▏ | 32/39 [57:01<12:28,  0.01it/s, v_num=12, train=0.315, par=0.000141, 3D signal=0.315, AP_loss=0.315]--- 36.97443604469299 seconds ---
+Epoch 0:  85%|████████▍ | 33/39 [58:48<10:41,  0.01it/s, v_num=12, train=0.315, par=0.000141, 3D signal=0.315, AP_loss=0.315]Epoch 0:  85%|████████▍ | 33/39 [58:48<10:41,  0.01it/s, v_num=12, train=0.256, par=0.000197, 3D signal=0.256, AP_loss=0.256]--- 37.670933961868286 seconds ---
+Epoch 0:  87%|████████▋ | 34/39 [1:00:37<08:54,  0.01it/s, v_num=12, train=0.256, par=0.000197, 3D signal=0.256, AP_loss=0.256]Epoch 0:  87%|████████▋ | 34/39 [1:00:37<08:54,  0.01it/s, v_num=12, train=0.226, par=0.00018, 3D signal=0.226, AP_loss=0.226] --- 30.552202701568604 seconds ---
+Epoch 0:  90%|████████▉ | 35/39 [1:02:06<07:05,  0.01it/s, v_num=12, train=0.226, par=0.00018, 3D signal=0.226, AP_loss=0.226]Epoch 0:  90%|████████▉ | 35/39 [1:02:06<07:05,  0.01it/s, v_num=12, train=0.208, par=0.000327, 3D signal=0.208, AP_loss=0.208]--- 36.83383083343506 seconds ---
+Epoch 0:  92%|█████████▏| 36/39 [1:03:53<05:19,  0.01it/s, v_num=12, train=0.208, par=0.000327, 3D signal=0.208, AP_loss=0.208]Epoch 0:  92%|█████████▏| 36/39 [1:03:53<05:19,  0.01it/s, v_num=12, train=0.227, par=0.000617, 3D signal=0.227, AP_loss=0.227]--- 36.4598171710968 seconds ---
+Epoch 0:  95%|█████████▍| 37/39 [1:05:40<03:32,  0.01it/s, v_num=12, train=0.227, par=0.000617, 3D signal=0.227, AP_loss=0.227]Epoch 0:  95%|█████████▍| 37/39 [1:05:40<03:32,  0.01it/s, v_num=12, train=0.220, par=0.000354, 3D signal=0.220, AP_loss=0.220]--- 34.36905026435852 seconds ---
+Epoch 0:  97%|█████████▋| 38/39 [1:07:20<01:46,  0.01it/s, v_num=12, train=0.220, par=0.000354, 3D signal=0.220, AP_loss=0.220]Epoch 0:  97%|█████████▋| 38/39 [1:07:20<01:46,  0.01it/s, v_num=12, train=0.219, par=0.000441, 3D signal=0.219, AP_loss=0.219]--- 31.38314723968506 seconds ---
+Epoch 0: 100%|██████████| 39/39 [1:08:51<00:00,  0.01it/s, v_num=12, train=0.219, par=0.000441, 3D signal=0.219, AP_loss=0.219]Epoch 0: 100%|██████████| 39/39 [1:08:51<00:00,  0.01it/s, v_num=12, train=0.272, par=0.000688, 3D signal=0.272, AP_loss=0.272]
+Validation: |          | 0/? [00:00<?, ?it/s][A
+Validation:   0%|          | 0/13 [00:00<?, ?it/s][A
+Validation DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s][ATraceback (most recent call last):
+  File "/shared/rc/hyper-ep/hyper-ep/main.py", line 161, in <module>
+    main()
+  File "/shared/rc/hyper-ep/hyper-ep/main.py", line 157, in main
+    trainer.fit(model,train_loader, valid_loader)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/trainer.py", line 544, in fit
+    call._call_and_handle_interrupt(
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/call.py", line 44, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/trainer.py", line 580, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/trainer.py", line 989, in _run
+    results = self._run_stage()
+              ^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/trainer.py", line 1035, in _run_stage
+    self.fit_loop.run()
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py", line 202, in run
+    self.advance()
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py", line 359, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 137, in run
+    self.on_advance_end(data_fetcher)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 285, in on_advance_end
+    self.val_loop.run()
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/utilities.py", line 182, in _decorator
+    return loop_run(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/evaluation_loop.py", line 134, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx, dataloader_iter)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/evaluation_loop.py", line 391, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/call.py", line 309, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/strategies/strategy.py", line 403, in validation_step
+    return self.lightning_module.validation_step(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/rc/hyper-ep/hyper-ep/model.py", line 609, in validation_step
+    loss_dict=self.get_loss_wrt_a(TMP, y, a)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/rc/hyper-ep/hyper-ep/model.py", line 274, in get_loss_wrt_a
+    assert TMP[i].requires_grad, f"TMP[{i}] does not require gradients"
+AssertionError: TMP[0] does not require gradients
+Epoch 0: 100%|██████████| 39/39 [1:09:28<00:00,  0.01it/s, v_num=12, train=0.272, par=0.000688, 3D signal=0.272, AP_loss=0.272]
+
+                                                               [A

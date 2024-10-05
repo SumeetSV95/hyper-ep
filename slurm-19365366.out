@@ -1,0 +1,237 @@
+/shared/rc/hyper-ep/hyper-ep/main.py:56: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /opt/conda/conda-bld/pytorch_1682343995622/work/torch/csrc/utils/tensor_new.cpp:245.)
+  ids=torch.tensor(ids).to(device)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA A100-PCIE-40GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name       | Type        | Params
+-------------------------------------------
+0 | metaNet    | MetaNet_new | 2.2 K 
+1 | contextEnc | ResNet1D    | 4.3 M 
+2 | ode        | APModel_uv  | 2.2 K 
+3 | sdtw       | SoftDTW     | 0     
+-------------------------------------------
+4.3 M     Trainable params
+0         Non-trainable params
+4.3 M     Total params
+17.390    Total estimated model params size (MB)
+SLURM auto-requeueing enabled. Setting signal handlers.
+Folder already exists at: /home/sv6234/ECGI/checkHybrid_testing
+0
+Training: |          | 0/? [00:00<?, ?it/s]Training:   0%|          | 0/318 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/318 [00:00<?, ?it/s] STAGE:2024-10-04 15:02:10 3815241:3815241 ActivityProfilerController.cpp:311] Completed Stage: Warm Up
+/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/modules/conv.py:309: UserWarning: Applied workaround for CuDNN issue, install nvrtc.so (Triggered internally at /opt/conda/conda-bld/pytorch_1682343995622/work/aten/src/ATen/native/cudnn/Conv_v8.cpp:80.)
+  return F.conv1d(input, weight, bias, self.stride,
+STAGE:2024-10-04 15:02:13 3815241:3815241 ActivityProfilerController.cpp:317] Completed Stage: Collection
+STAGE:2024-10-04 15:02:13 3815241:3815241 ActivityProfilerController.cpp:321] Completed Stage: Post Processing
+STAGE:2024-10-04 15:02:13 3815241:3815241 ActivityProfilerController.cpp:311] Completed Stage: Warm Up
+STAGE:2024-10-04 15:03:49 3815241:3815241 ActivityProfilerController.cpp:317] Completed Stage: Collection
+STAGE:2024-10-04 15:03:58 3815241:3815241 ActivityProfilerController.cpp:321] Completed Stage: Post Processing
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                            aten::empty         0.02%     400.000us         0.02%     400.000us       3.960us     757.000us         0.03%     757.000us       7.495us           0 b           0 b      13.20 Mb      13.20 Mb           101  
+                                            aten::addmm         1.32%      34.673ms         3.72%      97.621ms      97.621ms      97.617ms         3.72%      97.633ms      97.633ms           0 b           0 b       8.13 Mb       8.13 Mb             1  
+                                aten::cudnn_convolution        45.13%        1.183s        64.29%        1.686s      84.292ms        1.686s        64.31%        1.686s      84.311ms           0 b           0 b       3.17 Mb       3.17 Mb            20  
+                          aten::max_pool2d_with_indices         0.00%      84.000us         1.73%      45.317ms      45.317ms      45.327ms         1.73%      45.327ms      45.327ms           0 b           0 b     450.00 Kb     450.00 Kb             1  
+                                             aten::mean         0.00%     128.000us         3.23%      84.568ms      42.284ms      84.580ms         3.23%      84.585ms      42.292ms           0 b           0 b      40.50 Kb      40.50 Kb             2  
+                                          aten::sigmoid         0.00%      94.000us         1.93%      50.718ms      50.718ms      50.728ms         1.93%      50.728ms      50.728ms           0 b           0 b         512 b         512 b             1  
+                                              aten::mul         0.00%      55.000us         0.00%      84.000us      84.000us      89.000us         0.00%      89.000us      89.000us           0 b           0 b         512 b         512 b             1  
+                                              aten::add         0.00%      31.000us         0.00%      53.000us      53.000us      58.000us         0.00%      58.000us      58.000us           0 b           0 b         512 b         512 b             1  
+                                             aten::view         0.00%      59.000us         0.00%      59.000us       2.682us     143.000us         0.01%     143.000us       6.500us           0 b           0 b           0 b           0 b            22  
+                                          aten::permute         0.00%      55.000us         0.00%      58.000us      58.000us      36.000us         0.00%      61.000us      61.000us           0 b           0 b           0 b           0 b             1  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 2.622s
+Self CUDA time total: 2.622s
+
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                            aten::empty         0.69%     588.538ms         3.52%        3.002s      30.261us        3.489s         4.09%        3.489s      35.170us      27.53 Kb      27.53 Kb      73.66 Gb      73.31 Gb         99203  
+                                        aten::clamp_min         0.75%     635.965ms         1.01%     858.610ms      17.190us        1.124s         1.32%        1.124s      22.497us           0 b           0 b      16.66 Gb      16.66 Gb         49948  
+                                              aten::mul         4.72%        4.031s         6.04%        5.157s      17.171us        6.879s         8.06%        6.879s      22.907us           0 b           0 b       4.62 Gb       4.62 Gb        300307  
+                                             aten::silu         0.57%     488.993ms         0.80%     680.413ms      27.245us     847.256ms         0.99%     847.256ms      33.926us           0 b           0 b       3.33 Gb       3.33 Gb         24974  
+                                              aten::sub         2.38%        2.035s         3.08%        2.630s      16.684us        3.510s         4.11%        3.510s      22.265us           0 b           0 b       1.48 Gb       1.48 Gb        157633  
+                                              aten::add         1.76%        1.501s         2.27%        1.934s      15.438us        2.623s         3.07%        2.623s      20.936us           0 b           0 b       1.28 Gb       1.28 Gb        125269  
+                                              aten::cat         1.03%     880.514ms         1.36%        1.164s      23.303us        1.452s         1.70%        1.452s      29.063us           0 b           0 b     853.60 Mb     853.60 Mb         49949  
+                                              aten::sum         1.11%     950.833ms         1.50%        1.281s      39.311us        1.332s         1.56%        1.494s      45.851us           0 b           0 b     556.99 Mb     556.99 Mb         32592  
+                                             cudaMalloc         2.82%        2.403s         2.82%        2.403s     221.672us       0.000us         0.00%       0.000us       0.000us           0 b           0 b     355.00 Mb     355.00 Mb         10839  
+                                             aten::tanh         0.56%     475.182ms         0.76%     651.811ms      26.100us     810.898ms         0.95%     810.898ms      32.470us           0 b           0 b     219.50 Mb     219.50 Mb         24974  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 85.351s
+Self CUDA time total: 85.351s
+
+--- 520.6895756721497 seconds ---
+Epoch 0:   0%|          | 1/318 [09:39<51:04:00,  0.00it/s]Epoch 0:   0%|          | 1/318 [09:39<51:04:07,  0.00it/s, v_num=3, train=0.108, par=0.00077, 3D signal=0.108, AP_loss=0.108]STAGE:2024-10-04 15:11:51 3815241:3815241 ActivityProfilerController.cpp:311] Completed Stage: Warm Up
+STAGE:2024-10-04 15:11:51 3815241:3815241 ActivityProfilerController.cpp:317] Completed Stage: Collection
+STAGE:2024-10-04 15:11:51 3815241:3815241 ActivityProfilerController.cpp:321] Completed Stage: Post Processing
+STAGE:2024-10-04 15:11:52 3815241:3815241 ActivityProfilerController.cpp:311] Completed Stage: Warm Up
+STAGE:2024-10-04 15:14:56 3815241:3815241 ActivityProfilerController.cpp:317] Completed Stage: Collection
+STAGE:2024-10-04 15:15:04 3815241:3815241 ActivityProfilerController.cpp:321] Completed Stage: Post Processing
+------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                         aten::empty         3.49%     441.000us         3.49%     441.000us       4.366us     868.000us         6.88%     868.000us       8.594us           0 b           0 b      13.22 Mb      13.22 Mb           101  
+             aten::cudnn_convolution        14.74%       1.863ms        17.56%       2.219ms     110.950us       2.812ms        22.28%       2.812ms     140.600us           0 b           0 b       3.17 Mb       3.17 Mb            20  
+       aten::max_pool2d_with_indices         0.21%      26.000us         0.28%      35.000us      35.000us      42.000us         0.33%      42.000us      42.000us           0 b           0 b     450.00 Kb     450.00 Kb             1  
+                          aten::mean         0.49%      62.000us         0.61%      77.000us      38.500us      83.000us         0.66%      87.000us      43.500us           0 b           0 b      40.50 Kb      40.50 Kb             2  
+                         aten::addmm         0.63%      80.000us         0.90%     114.000us     114.000us     100.000us         0.79%     120.000us     120.000us           0 b           0 b         512 b         512 b             1  
+                       aten::sigmoid         0.17%      22.000us         0.25%      32.000us      32.000us      37.000us         0.29%      37.000us      37.000us           0 b           0 b         512 b         512 b             1  
+                           aten::mul         0.15%      19.000us         0.19%      24.000us      24.000us      30.000us         0.24%      30.000us      30.000us           0 b           0 b         512 b         512 b             1  
+                           aten::add         0.11%      14.000us         0.14%      18.000us      18.000us      23.000us         0.18%      23.000us      23.000us           0 b           0 b         512 b         512 b             1  
+                          aten::view         0.31%      39.000us         0.31%      39.000us       1.773us     144.000us         1.14%     144.000us       6.545us           0 b           0 b           0 b           0 b            22  
+                       aten::permute         0.17%      21.000us         0.21%      26.000us      26.000us      21.000us         0.17%      30.000us      30.000us           0 b           0 b           0 b           0 b             1  
+------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 12.637ms
+Self CUDA time total: 12.620ms
+
+-------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                             Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+-------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                      aten::empty         0.37%     636.208ms         0.39%     682.104ms       6.726us        2.331s         1.35%        2.331s      22.987us      29.03 Kb      29.03 Kb      75.30 Gb      75.30 Gb        101416  
+                                  aten::clamp_min         0.40%     698.322ms         0.55%     952.132ms      18.646us        1.876s         1.08%        1.876s      36.742us           0 b           0 b      17.03 Gb      17.03 Gb         51064  
+                                        aten::mul         2.39%        4.130s         3.07%        5.317s      17.324us       10.682s         6.18%       10.682s      34.802us           0 b           0 b       4.72 Gb       4.72 Gb        306940  
+                                       aten::silu         0.29%     496.923ms         0.38%     649.218ms      25.428us        1.241s         0.72%        1.241s      48.602us           0 b           0 b       3.41 Gb       3.41 Gb         25532  
+                                        aten::sub         1.22%        2.105s         1.57%        2.720s      16.883us        5.490s         3.17%        5.490s      34.073us           0 b           0 b       1.51 Gb       1.51 Gb        161127  
+                                        aten::add         0.94%        1.632s         1.21%        2.097s      16.378us        4.303s         2.49%        4.303s      33.604us           0 b           0 b       1.31 Gb       1.31 Gb        128038  
+                                        aten::cat         0.56%     967.822ms         0.74%        1.286s      25.189us        2.200s         1.27%        2.200s      43.078us           0 b           0 b     872.68 Mb     872.68 Mb         51065  
+                                        aten::sum         1.05%        1.814s         1.16%        2.003s      60.133us        2.019s         1.17%        2.565s      76.993us           0 b           0 b     569.38 Mb     569.38 Mb         33317  
+                                       aten::tanh         0.28%     481.524ms         0.35%     610.074ms      23.894us        1.125s         0.65%        1.125s      44.077us           0 b           0 b     224.40 Mb     224.40 Mb         25532  
+                                         aten::mm         0.42%     722.268ms         0.57%     977.769ms      38.296us        1.569s         0.91%        1.569s      61.472us           0 b           0 b     224.40 Mb     224.40 Mb         25532  
+-------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 172.981s
+Self CUDA time total: 172.981s
+
+--- 655.4237287044525 seconds ---
+Epoch 0:   1%|          | 2/318 [21:36<56:54:43,  0.00it/s, v_num=3, train=0.108, par=0.00077, 3D signal=0.108, AP_loss=0.108]Epoch 0:   1%|          | 2/318 [21:36<56:54:50,  0.00it/s, v_num=3, train=0.451, par=0.000954, 3D signal=0.451, AP_loss=0.451]STAGE:2024-10-04 15:23:47 3815241:3815241 ActivityProfilerController.cpp:311] Completed Stage: Warm Up
+STAGE:2024-10-04 15:23:50 3815241:3815241 ActivityProfilerController.cpp:317] Completed Stage: Collection
+STAGE:2024-10-04 15:23:50 3815241:3815241 ActivityProfilerController.cpp:321] Completed Stage: Post Processing
+STAGE:2024-10-04 15:23:50 3815241:3815241 ActivityProfilerController.cpp:311] Completed Stage: Warm Up
+STAGE:2024-10-04 15:27:02 3815241:3815241 ActivityProfilerController.cpp:317] Completed Stage: Collection
+STAGE:2024-10-04 15:27:10 3815241:3815241 ActivityProfilerController.cpp:321] Completed Stage: Post Processing
+------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                         aten::empty         6.59%     210.345ms         6.59%     210.345ms       2.083ms     490.702ms        15.37%     490.702ms       4.858ms           0 b           0 b      13.22 Mb      13.22 Mb           101  
+             aten::cudnn_convolution         1.63%      51.977ms         1.65%      52.662ms       2.633ms     100.661ms         3.15%     100.661ms       5.033ms           0 b           0 b       3.17 Mb       3.17 Mb            20  
+       aten::max_pool2d_with_indices         0.22%       7.117ms         0.22%       7.145ms       7.145ms      12.959ms         0.41%      12.959ms      12.959ms           0 b           0 b     450.00 Kb     450.00 Kb             1  
+                          aten::mean         0.00%      65.000us         0.00%      79.000us      39.500us      87.000us         0.00%      92.000us      46.000us           0 b           0 b      40.50 Kb      40.50 Kb             2  
+                         aten::addmm         0.00%      76.000us         0.00%     109.000us     109.000us      95.000us         0.00%     114.000us     114.000us           0 b           0 b         512 b         512 b             1  
+                       aten::sigmoid         0.00%      23.000us         0.00%      33.000us      33.000us      37.000us         0.00%      37.000us      37.000us           0 b           0 b         512 b         512 b             1  
+                           aten::mul         0.00%      18.000us         0.00%      23.000us      23.000us      27.000us         0.00%      27.000us      27.000us           0 b           0 b         512 b         512 b             1  
+                           aten::add         0.00%      15.000us         0.00%      20.000us      20.000us      26.000us         0.00%      26.000us      26.000us           0 b           0 b         512 b         512 b             1  
+                          aten::view         0.65%      20.908ms         0.65%      20.908ms     950.364us      75.081ms         2.35%      75.081ms       3.413ms           0 b           0 b           0 b           0 b            22  
+                       aten::permute         0.00%      26.000us         0.00%      30.000us      30.000us      24.000us         0.00%      35.000us      35.000us           0 b           0 b           0 b           0 b             1  
+------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 3.193s
+Self CUDA time total: 3.193s
+
+-------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                             Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+-------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                      aten::empty         0.36%     642.525ms         0.37%     659.775ms       6.454us        2.395s         1.33%        2.395s      23.433us      29.53 Kb      29.53 Kb      75.90 Gb      75.90 Gb        102224  
+                                  aten::clamp_min         0.40%     709.776ms         0.54%     969.642ms      18.838us        1.937s         1.08%        1.937s      37.632us           0 b           0 b      17.17 Gb      17.17 Gb         51472  
+                                        aten::mul         2.36%        4.233s         3.04%        5.456s      17.637us       11.080s         6.17%       11.080s      35.819us           0 b           0 b       4.76 Gb       4.71 Gb        309346  
+                                       aten::silu         0.28%     502.833ms         0.37%     658.801ms      25.598us        1.273s         0.71%        1.273s      49.453us           0 b           0 b       3.44 Gb       3.44 Gb         25736  
+                                        aten::sub         1.20%        2.148s         1.54%        2.770s      17.058us        5.686s         3.17%        5.686s      35.011us           0 b           0 b       1.52 Gb       1.51 Gb        162397  
+                                        aten::add         0.91%        1.641s         1.18%        2.116s      16.400us        4.438s         2.47%        4.438s      34.388us           0 b           0 b       1.32 Gb       1.30 Gb        129044  
+                                        aten::cat         0.55%     983.552ms         0.73%        1.303s      25.324us        2.253s         1.26%        2.253s      43.770us           0 b           0 b     879.65 Mb     879.65 Mb         51473  
+                                        aten::sum         1.05%        1.881s         1.16%        2.077s      61.839us        2.081s         1.16%        2.662s      79.282us           0 b           0 b     573.89 Mb     573.89 Mb         33581  
+                                       aten::tanh         0.27%     492.248ms         0.35%     621.078ms      24.133us        1.161s         0.65%        1.161s      45.099us           0 b           0 b     226.20 Mb     226.20 Mb         25736  
+                                         aten::mm         0.41%     738.853ms         0.56%     998.226ms      38.787us        1.611s         0.90%        1.611s      62.587us           0 b           0 b     226.20 Mb     226.20 Mb         25736  
+-------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 179.468s
+Self CUDA time total: 179.468s
+
+--- 675.253429889679 seconds ---
+Epoch 0:   1%|          | 3/318 [33:53<59:18:25,  0.00it/s, v_num=3, train=0.451, par=0.000954, 3D signal=0.451, AP_loss=0.451]Epoch 0:   1%|          | 3/318 [33:53<59:18:26,  0.00it/s, v_num=3, train=0.446, par=0.00198, 3D signal=0.446, AP_loss=0.446] STAGE:2024-10-04 15:36:11 3815241:3815241 ActivityProfilerController.cpp:311] Completed Stage: Warm Up
+STAGE:2024-10-04 15:36:14 3815241:3815241 ActivityProfilerController.cpp:317] Completed Stage: Collection
+STAGE:2024-10-04 15:36:15 3815241:3815241 ActivityProfilerController.cpp:321] Completed Stage: Post Processing
+STAGE:2024-10-04 15:36:16 3815241:3815241 ActivityProfilerController.cpp:311] Completed Stage: Warm Up
+STAGE:2024-10-04 15:39:27 3815241:3815241 ActivityProfilerController.cpp:317] Completed Stage: Collection
+STAGE:2024-10-04 15:39:39 3815241:3815241 ActivityProfilerController.cpp:321] Completed Stage: Post Processing
+------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                         aten::empty         5.96%     129.484ms         5.96%     129.484ms       1.282ms     289.952ms        13.33%     289.952ms       2.871ms           0 b           0 b      13.22 Mb      13.22 Mb           101  
+             aten::cudnn_convolution         3.32%      72.201ms         3.35%      72.870ms       3.643ms     104.996ms         4.83%     104.996ms       5.250ms           0 b           0 b       3.17 Mb       3.17 Mb            20  
+       aten::max_pool2d_with_indices         0.09%       1.898ms         0.09%       1.910ms       1.910ms       3.686ms         0.17%       3.686ms       3.686ms           0 b           0 b     450.00 Kb     450.00 Kb             1  
+                          aten::mean         0.22%       4.833ms         0.25%       5.367ms       2.683ms       5.328ms         0.25%       6.807ms       3.404ms           0 b           0 b      40.50 Kb      40.50 Kb             2  
+                         aten::addmm         0.18%       4.002ms         0.29%       6.404ms       6.404ms       3.379ms         0.16%       6.796ms       6.796ms           0 b           0 b         512 b         512 b             1  
+                       aten::sigmoid         0.09%       2.037ms         0.09%       2.047ms       2.047ms       2.969ms         0.14%       2.969ms       2.969ms           0 b           0 b         512 b         512 b             1  
+                           aten::mul         0.06%       1.365ms         0.06%       1.376ms       1.376ms       2.308ms         0.11%       2.308ms       2.308ms           0 b           0 b         512 b         512 b             1  
+                           aten::add         0.04%     966.000us         0.04%     976.000us     976.000us       1.963ms         0.09%       1.963ms       1.963ms           0 b           0 b         512 b         512 b             1  
+                          aten::view         1.00%      21.796ms         1.00%      21.796ms     990.727us      57.310ms         2.64%      57.310ms       2.605ms           0 b           0 b           0 b           0 b            22  
+                       aten::permute         0.34%       7.448ms         0.39%       8.549ms       8.549ms       5.706ms         0.26%       9.782ms       9.782ms           0 b           0 b           0 b           0 b             1  
+------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 2.173s
+Self CUDA time total: 2.175s
+
+-------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                             Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+-------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                      aten::empty         0.36%     644.266ms         0.36%     644.266ms       6.335us        2.365s         1.33%        2.365s      23.251us      29.19 Kb      29.19 Kb      75.51 Gb      75.51 Gb        101698  
+                                  aten::clamp_min         0.39%     697.018ms         0.54%     951.621ms      18.583us        1.914s         1.08%        1.914s      37.370us           0 b           0 b      17.08 Gb      17.08 Gb         51208  
+                                        aten::mul         2.34%        4.147s         3.01%        5.342s      17.358us       10.954s         6.17%       10.954s      35.595us           0 b           0 b       4.74 Gb       4.66 Gb        307732  
+                                       aten::silu         0.27%     486.794ms         0.36%     635.136ms      24.806us        1.244s         0.70%        1.244s      48.591us           0 b           0 b       3.42 Gb       3.42 Gb         25604  
+                                        aten::sub         1.19%        2.112s         1.53%        2.716s      16.813us        5.628s         3.17%        5.628s      34.835us           0 b           0 b       1.52 Gb       1.50 Gb        161553  
+                                        aten::add         0.93%        1.644s         1.19%        2.106s      16.406us        4.404s         2.48%        4.404s      34.303us           0 b           0 b       1.31 Gb       1.28 Gb        128374  
+                                        aten::cat         0.54%     960.792ms         0.72%        1.272s      24.846us        2.219s         1.25%        2.219s      43.339us           0 b           0 b     875.14 Mb     875.14 Mb         51209  
+                                        aten::sum         1.05%        1.858s         1.15%        2.042s      61.120us        2.059s         1.16%        2.628s      78.666us           0 b           0 b     570.92 Mb     570.92 Mb         33407  
+                                       aten::tanh         0.27%     475.443ms         0.34%     599.065ms      23.397us        1.132s         0.64%        1.132s      44.194us           0 b           0 b     225.04 Mb     225.04 Mb         25604  
+                                         aten::mm         0.41%     720.354ms         0.55%     970.688ms      37.912us        1.583s         0.89%        1.583s      61.819us           0 b           0 b     225.04 Mb     225.04 Mb         25604  
+-------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 177.555s
+Self CUDA time total: 177.555s
+
+--- 701.6067521572113 seconds ---
+Epoch 0:   1%|▏         | 4/318 [46:43<61:08:08,  0.00it/s, v_num=3, train=0.446, par=0.00198, 3D signal=0.446, AP_loss=0.446]Epoch 0:   1%|▏         | 4/318 [46:43<61:08:09,  0.00it/s, v_num=3, train=0.404, par=0.001, 3D signal=0.404, AP_loss=0.404]  STAGE:2024-10-04 15:48:53 3815241:3815241 ActivityProfilerController.cpp:311] Completed Stage: Warm Up
+STAGE:2024-10-04 15:48:57 3815241:3815241 ActivityProfilerController.cpp:317] Completed Stage: Collection
+STAGE:2024-10-04 15:48:57 3815241:3815241 ActivityProfilerController.cpp:321] Completed Stage: Post Processing
+STAGE:2024-10-04 15:48:59 3815241:3815241 ActivityProfilerController.cpp:311] Completed Stage: Warm Up
+STAGE:2024-10-04 15:52:08 3815241:3815241 ActivityProfilerController.cpp:317] Completed Stage: Collection
+STAGE:2024-10-04 15:52:19 3815241:3815241 ActivityProfilerController.cpp:321] Completed Stage: Post Processing
+------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                         aten::empty         5.45%     154.382ms         5.45%     154.382ms       1.529ms     360.932ms        12.74%     360.932ms       3.574ms           0 b           0 b      13.20 Mb      13.20 Mb           101  
+             aten::cudnn_convolution         2.70%      76.456ms         2.72%      77.131ms       3.857ms     122.562ms         4.33%     122.562ms       6.128ms           0 b           0 b       3.17 Mb       3.17 Mb            20  
+       aten::max_pool2d_with_indices         0.10%       2.832ms         0.10%       2.848ms       2.848ms       5.516ms         0.19%       5.516ms       5.516ms           0 b           0 b     450.00 Kb     450.00 Kb             1  
+                          aten::mean         0.20%       5.741ms         0.23%       6.465ms       3.232ms       6.750ms         0.24%       8.608ms       4.304ms           0 b           0 b      40.50 Kb      40.50 Kb             2  
+                         aten::addmm         0.15%       4.334ms         0.28%       7.795ms       7.795ms       3.470ms         0.12%       8.436ms       8.436ms           0 b           0 b         512 b         512 b             1  
+                       aten::sigmoid         0.08%       2.263ms         0.08%       2.275ms       2.275ms       3.678ms         0.13%       3.678ms       3.678ms           0 b           0 b         512 b         512 b             1  
+                           aten::mul         0.08%       2.208ms         0.08%       2.218ms       2.218ms       3.409ms         0.12%       3.409ms       3.409ms           0 b           0 b         512 b         512 b             1  
+                           aten::add         0.05%       1.514ms         0.05%       1.523ms       1.523ms       2.869ms         0.10%       2.869ms       2.869ms           0 b           0 b         512 b         512 b             1  
+                          aten::view         0.83%      23.449ms         0.83%      23.449ms       1.066ms      63.636ms         2.25%      63.636ms       2.893ms           0 b           0 b           0 b           0 b            22  
+                       aten::permute         0.33%       9.218ms         0.37%      10.461ms      10.461ms       9.396ms         0.33%      14.489ms      14.489ms           0 b           0 b           0 b           0 b             1  
+------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 2.832s
+Self CUDA time total: 2.833s
+
+-------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                             Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+-------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                      aten::empty         0.37%     642.642ms         0.37%     642.642ms       6.336us        2.348s         1.34%        2.348s      23.145us      28.90 Kb      28.90 Kb      75.30 Gb      75.30 Gb        101432  
+                                  aten::clamp_min         0.39%     684.285ms         0.53%     936.190ms      18.334us        1.885s         1.07%        1.885s      36.906us           0 b           0 b      17.03 Gb      17.03 Gb         51064  
+                                        aten::mul         2.33%        4.083s         3.00%        5.271s      17.156us       10.791s         6.15%       10.791s      35.124us           0 b           0 b       4.73 Gb       4.73 Gb        307228  
+                                       aten::silu         0.28%     486.071ms         0.36%     636.868ms      24.944us        1.238s         0.71%        1.238s      48.496us           0 b           0 b       3.41 Gb       3.41 Gb         25532  
+                                        aten::sub         1.19%        2.085s         1.53%        2.685s      16.651us        5.548s         3.16%        5.548s      34.409us           0 b           0 b       1.51 Gb       1.51 Gb        161239  
+                                        aten::add         0.91%        1.603s         1.18%        2.062s      16.092us        4.342s         2.48%        4.342s      33.889us           0 b           0 b       1.31 Gb       1.31 Gb        128134  
+                                        aten::cat         0.54%     947.092ms         0.72%        1.256s      24.604us        2.188s         1.25%        2.188s      42.840us           0 b           0 b     872.68 Mb     872.68 Mb         51065  
+                                        aten::sum         1.05%        1.836s         1.15%        2.020s      60.614us        2.034s         1.16%        2.596s      77.873us           0 b           0 b     569.66 Mb     569.66 Mb         33333  
+                                       aten::tanh         0.27%     471.355ms         0.34%     594.383ms      23.280us        1.114s         0.63%        1.114s      43.620us           0 b           0 b     224.40 Mb     224.40 Mb         25532  
+                                         aten::mm         0.41%     719.062ms         0.55%     967.063ms      37.877us        1.572s         0.90%        1.572s      61.568us           0 b           0 b     224.40 Mb     224.40 Mb         25532  
+-------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 175.407s
+Self CUDA time total: 175.407s
+
+--- 706.7936372756958 seconds ---
+Epoch 0:   2%|▏         | 5/318 [59:31<62:06:20,  0.00it/s, v_num=3, train=0.404, par=0.001, 3D signal=0.404, AP_loss=0.404]Epoch 0:   2%|▏         | 5/318 [59:31<62:06:20,  0.00it/s, v_num=3, train=0.196, par=2.08e-13, 3D signal=0.196, AP_loss=0.196]STAGE:2024-10-04 16:01:41 3815241:3815241 ActivityProfilerController.cpp:311] Completed Stage: Warm Up
+STAGE:2024-10-04 16:01:44 3815241:3815241 ActivityProfilerController.cpp:317] Completed Stage: Collection
+STAGE:2024-10-04 16:01:44 3815241:3815241 ActivityProfilerController.cpp:321] Completed Stage: Post Processing
+STAGE:2024-10-04 16:01:47 3815241:3815241 ActivityProfilerController.cpp:311] Completed Stage: Warm Up
+STAGE:2024-10-04 16:04:52 3815241:3815241 ActivityProfilerController.cpp:317] Completed Stage: Collection
+STAGE:2024-10-04 16:05:03 3815241:3815241 ActivityProfilerController.cpp:321] Completed Stage: Post Processing
+slurmstepd: error: *** JOB 19365366 ON skl-a-51 CANCELLED AT 2024-10-04T16:09:52 ***

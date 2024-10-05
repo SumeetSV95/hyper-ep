@@ -1,0 +1,156 @@
+/shared/rc/hyper-ep/hyper-ep/main.py:56: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /opt/conda/conda-bld/pytorch_1682343995622/work/torch/csrc/utils/tensor_new.cpp:245.)
+  ids=torch.tensor(ids).to(device)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA A100-PCIE-40GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name       | Type        | Params
+-------------------------------------------
+0 | metaNet    | MetaNet_new | 2.2 K 
+1 | contextEnc | ResNet1D    | 4.3 M 
+2 | ode        | APModel_uv  | 2.2 K 
+3 | sdtw       | SoftDTW     | 0     
+-------------------------------------------
+4.3 M     Trainable params
+0         Non-trainable params
+4.3 M     Total params
+17.390    Total estimated model params size (MB)
+SLURM auto-requeueing enabled. Setting signal handlers.
+/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py:293: The number of training batches (5) is smaller than the logging interval Trainer(log_every_n_steps=50). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+Folder already exists at: /home/sv6234/ECGI/checkHybrid_sur_out_weighted
+0
+Using ResNet
+Training: |          | 0/? [00:00<?, ?it/s]Training:   0%|          | 0/5 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/5 [00:00<?, ?it/s] /home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/modules/conv.py:309: UserWarning: Applied workaround for CuDNN issue, install nvrtc.so (Triggered internally at /opt/conda/conda-bld/pytorch_1682343995622/work/aten/src/ATen/native/cudnn/Conv_v8.cpp:80.)
+  return F.conv1d(input, weight, bias, self.stride,
+torch.Size([4, 2238]) torch.Size([4, 117, 1119]) torch.Size([4, 10, 117, 1119]) torch.Size([4])
+torch.Size([40, 117, 1119])
+Traceback (most recent call last):
+  File "/shared/rc/hyper-ep/hyper-ep/main.py", line 161, in <module>
+    main()
+  File "/shared/rc/hyper-ep/hyper-ep/main.py", line 157, in main
+    trainer.fit(model,train_loader, valid_loader)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/trainer.py", line 544, in fit
+    call._call_and_handle_interrupt(
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/call.py", line 44, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/trainer.py", line 580, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/trainer.py", line 989, in _run
+    results = self._run_stage()
+              ^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/trainer.py", line 1035, in _run_stage
+    self.fit_loop.run()
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py", line 202, in run
+    self.advance()
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py", line 359, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 136, in run
+    self.advance(data_fetcher)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 240, in advance
+    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 187, in run
+    self._optimizer_step(batch_idx, closure)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 265, in _optimizer_step
+    call._call_lightning_module_hook(
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/call.py", line 157, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/core/module.py", line 1291, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/core/optimizer.py", line 151, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/strategies/strategy.py", line 230, in optimizer_step
+    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/plugins/precision/precision.py", line 117, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/optim/optimizer.py", line 280, in wrapper
+    out = func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/optim/optimizer.py", line 33, in _use_grad
+    ret = func(self, *args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/optim/adam.py", line 121, in step
+    loss = closure()
+           ^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/plugins/precision/precision.py", line 104, in _wrap_closure
+    closure_result = closure()
+                     ^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 140, in __call__
+    self._result = self.closure(*args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 126, in closure
+    step_output = self._step_fn()
+                  ^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 315, in _training_step
+    training_step_output = call._call_strategy_hook(trainer, "training_step", *kwargs.values())
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/call.py", line 309, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/strategies/strategy.py", line 382, in training_step
+    return self.lightning_module.training_step(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/rc/hyper-ep/hyper-ep/model.py", line 417, in training_step
+    TMP=odeint(self.ode, UV, self.t, method='dopri5')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torchdiffeq/_impl/odeint.py", line 77, in odeint
+    solution = solver.integrate(t)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torchdiffeq/_impl/solvers.py", line 30, in integrate
+    solution[i] = self._advance(t[i])
+                  ^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torchdiffeq/_impl/rk_common.py", line 194, in _advance
+    self.rk_state = self._adaptive_step(self.rk_state)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torchdiffeq/_impl/rk_common.py", line 255, in _adaptive_step
+    y1, f1, y1_error, k = _runge_kutta_step(self.func, y0, f0, t0, dt, t1, tableau=self.tableau)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torchdiffeq/_impl/rk_common.py", line 76, in _runge_kutta_step
+    f = func(ti, yi, perturb=perturb)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torchdiffeq/_impl/misc.py", line 189, in forward
+    return self.base_func(t, y)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/rc/hyper-ep/hyper-ep/modules.py", line 101, in forward
+    nn=self.nn(uv).view(self.batch_size,self.dimD,1).squeeze()   
+       ^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/rc/hyper-ep/hyper-ep/modules.py", line 219, in forward
+    out = self.fc2(out)
+          ^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/modules/container.py", line 217, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/modules/activation.py", line 103, in forward
+    return F.relu(input, inplace=self.inplace)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/functional.py", line 1457, in relu
+    result = torch.relu(input)
+             ^^^^^^^^^^^^^^^^^
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB (GPU 0; 39.38 GiB total capacity; 38.86 GiB already allocated; 13.38 MiB free; 38.86 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+Epoch 0:   0%|          | 0/5 [00:44<?, ?it/s]

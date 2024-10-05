@@ -1,0 +1,147 @@
+/shared/rc/hyper-ep/hyper-ep/main.py:56: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /opt/conda/conda-bld/pytorch_1682343995622/work/torch/csrc/utils/tensor_new.cpp:245.)
+  ids=torch.tensor(ids).to(device)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA A100-PCIE-40GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name       | Type        | Params
+-------------------------------------------
+0 | metaNet    | MetaNet_new | 2.2 K 
+1 | contextEnc | ResNet1D    | 4.3 M 
+2 | ode        | APModel_uv  | 2.2 K 
+3 | sdtw       | SoftDTW     | 0     
+-------------------------------------------
+4.3 M     Trainable params
+0         Non-trainable params
+4.3 M     Total params
+17.390    Total estimated model params size (MB)
+SLURM auto-requeueing enabled. Setting signal handlers.
+Folder already exists at: /home/sv6234/ECGI/checkHybrid_testing
+0
+Training: |          | 0/? [00:00<?, ?it/s]Training:   0%|          | 0/318 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/318 [00:00<?, ?it/s] STAGE:2024-10-04 16:14:56 937023:937023 ActivityProfilerController.cpp:311] Completed Stage: Warm Up
+/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/modules/conv.py:309: UserWarning: Applied workaround for CuDNN issue, install nvrtc.so (Triggered internally at /opt/conda/conda-bld/pytorch_1682343995622/work/aten/src/ATen/native/cudnn/Conv_v8.cpp:80.)
+  return F.conv1d(input, weight, bias, self.stride,
+STAGE:2024-10-04 16:14:59 937023:937023 ActivityProfilerController.cpp:317] Completed Stage: Collection
+STAGE:2024-10-04 16:14:59 937023:937023 ActivityProfilerController.cpp:321] Completed Stage: Post Processing
+STAGE:2024-10-04 16:14:59 937023:937023 ActivityProfilerController.cpp:311] Completed Stage: Warm Up
+STAGE:2024-10-04 16:14:59 937023:937023 ActivityProfilerController.cpp:317] Completed Stage: Collection
+STAGE:2024-10-04 16:14:59 937023:937023 ActivityProfilerController.cpp:321] Completed Stage: Post Processing
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                            aten::empty         0.02%     495.000us         0.02%     495.000us       4.901us     909.000us         0.03%     909.000us       9.000us           0 b           0 b      13.20 Mb      13.20 Mb           101  
+                                            aten::addmm         1.15%      30.488ms         3.50%      92.944ms      92.944ms      92.941ms         3.50%      92.958ms      92.958ms           0 b           0 b       8.13 Mb       8.13 Mb             1  
+                                aten::cudnn_convolution        47.68%        1.268s        67.89%        1.805s      90.249ms        1.805s        67.91%        1.805s      90.269ms           0 b           0 b       3.17 Mb       3.17 Mb            20  
+                          aten::max_pool2d_with_indices         0.00%     110.000us         1.96%      52.242ms      52.242ms      52.253ms         1.97%      52.253ms      52.253ms           0 b           0 b     450.00 Kb     450.00 Kb             1  
+                                             aten::mean         0.01%     152.000us         1.99%      52.844ms      26.422ms      52.858ms         1.99%      52.864ms      26.432ms           0 b           0 b      40.50 Kb      40.50 Kb             2  
+                                          aten::sigmoid         0.00%     116.000us         2.26%      59.994ms      59.994ms      60.008ms         2.26%      60.008ms      60.008ms           0 b           0 b         512 b         512 b             1  
+                                              aten::mul         0.00%      61.000us         0.00%     114.000us     114.000us     120.000us         0.00%     120.000us     120.000us           0 b           0 b         512 b         512 b             1  
+                                              aten::add         0.00%      36.000us         0.00%      88.000us      88.000us      93.000us         0.00%      93.000us      93.000us           0 b           0 b         512 b         512 b             1  
+                                             aten::view         0.00%      81.000us         0.00%      81.000us       3.682us     178.000us         0.01%     178.000us       8.091us           0 b           0 b           0 b           0 b            22  
+                                          aten::permute         0.00%      41.000us         0.00%      45.000us      45.000us      43.000us         0.00%      51.000us      51.000us           0 b           0 b           0 b           0 b             1  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 2.659s
+Self CUDA time total: 2.659s
+
+Traceback (most recent call last):
+  File "/shared/rc/hyper-ep/hyper-ep/main.py", line 162, in <module>
+    main()
+  File "/shared/rc/hyper-ep/hyper-ep/main.py", line 158, in main
+    trainer.fit(model,train_loader, valid_loader)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/trainer.py", line 544, in fit
+    call._call_and_handle_interrupt(
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/call.py", line 44, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/trainer.py", line 580, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/trainer.py", line 989, in _run
+    results = self._run_stage()
+              ^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/trainer.py", line 1035, in _run_stage
+    self.fit_loop.run()
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py", line 202, in run
+    self.advance()
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py", line 359, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 136, in run
+    self.advance(data_fetcher)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 240, in advance
+    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 187, in run
+    self._optimizer_step(batch_idx, closure)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 265, in _optimizer_step
+    call._call_lightning_module_hook(
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/call.py", line 157, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/core/module.py", line 1291, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/core/optimizer.py", line 151, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/strategies/strategy.py", line 230, in optimizer_step
+    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/plugins/precision/precision.py", line 117, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/optim/optimizer.py", line 280, in wrapper
+    out = func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/optim/optimizer.py", line 33, in _use_grad
+    ret = func(self, *args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/optim/adam.py", line 121, in step
+    loss = closure()
+           ^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/plugins/precision/precision.py", line 104, in _wrap_closure
+    closure_result = closure()
+                     ^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 140, in __call__
+    self._result = self.closure(*args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 126, in closure
+    step_output = self._step_fn()
+                  ^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 315, in _training_step
+    training_step_output = call._call_strategy_hook(trainer, "training_step", *kwargs.values())
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/trainer/call.py", line 309, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/lightning/pytorch/strategies/strategy.py", line 382, in training_step
+    return self.lightning_module.training_step(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/rc/hyper-ep/hyper-ep/model.py", line 428, in training_step
+    TMP=odeint(self.ode, UV, self.t, method='dopri5')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torchdiffeq/_impl/odeint.py", line 77, in odeint
+    solution = solver.integrate(t)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torchdiffeq/_impl/solvers.py", line 28, in integrate
+    self._before_integrate(t)
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torchdiffeq/_impl/rk_common.py", line 161, in _before_integrate
+    f0 = self.func(t[0], self.y0)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torchdiffeq/_impl/misc.py", line 189, in forward
+    return self.base_func(t, y)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/rc/hyper-ep/hyper-ep/modules.py", line 124, in forward
+    pde1 = MK + k * u * (1 - u) * (u - self.par) - nn_output
+                                   ~~^~~~~~~~~~
+RuntimeError: The size of tensor a (1119) must match the size of tensor b (2) at non-singleton dimension 1
+Epoch 0:   0%|          | 0/318 [00:08<?, ?it/s]

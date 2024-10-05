@@ -1,0 +1,10 @@
+/home/sv6234/miniconda3/envs/miccai/lib/python3.11/site-packages/torch/nn/modules/conv.py:309: UserWarning: Applied workaround for CuDNN issue, install nvrtc.so (Triggered internally at /opt/conda/conda-bld/pytorch_1682343995622/work/aten/src/ATen/native/cudnn/Conv_v8.cpp:80.)
+  return F.conv1d(input, weight, bias, self.stride,
+Folder already exists at: /home/sv6234/ECGI/results/compare_all_1/
+Folder already exists at: /home/sv6234/ECGI/results/compare_all_1/internal/
+Folder already exists at: /home/sv6234/ECGI/results/compare_all_1/surface/
+Traceback (most recent call last):
+  File "/shared/rc/hyper-ep/hyper-ep/utils/compare_models.py", line 141, in <module>
+    for j in random.sample(range(len(model1.surfaceIds)),2):
+                                     ^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'surfaceIds'

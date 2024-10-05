@@ -1,0 +1,8 @@
+Folder already exists at: /home/sv6234/ECGI/results/compare_all_1/
+Folder already exists at: /home/sv6234/ECGI/results/compare_all_1/internal/
+Folder already exists at: /home/sv6234/ECGI/results/compare_all_1/surface/
+Traceback (most recent call last):
+  File "/shared/rc/hyper-ep/hyper-ep/utils/compare_models.py", line 75, in <module>
+    y_surface, y_internal = get_split_tmp(y, model1.surfaceIds, internal_nodes)
+                                             ^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'surfaceIds'

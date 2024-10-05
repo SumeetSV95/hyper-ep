@@ -8,30 +8,30 @@ import torch
 import lightning as L
 from torch.nn import functional as F
 import time
-from torchdiffeq import odeint
+from torchdiffeq import odeint_adjoint as odeint
 import numpy as np
 #from torch_spline_conv import spline_conv
 from sklearn.neighbors import kneighbors_graph
 import matplotlib.pyplot as plt
-from torch_geometric.nn.conv import spline_conv
+#from torch_geometric.nn.conv import spline_conv
 from torch.nn import Linear, ReLU,Tanh
-from torch_geometric.nn import Sequential
+#from torch_geometric.nn import Sequential
 from lightning.pytorch.utilities import grad_norm
 #from pl_bolts.optimizers.lr_scheduler import LinearWarmupCosineAnnealingLR
 #import pytorch_warmup as warmup
 from torch.optim.lr_scheduler import ExponentialLR
 from scipy.integrate import solve_ivp, LSODA
-import torchode as to
+#import torchode as to
 from TorchDiffEqPack import  odesolve_adjoint
 #from ignite.handlers import create_lr_scheduler_with_warmup
-from torchdyn.core import NeuralODE
-from torch_geometric.nn.conv import GCNConv
+#from torchdyn.core import NeuralODE
+#from torch_geometric.nn.conv import GCNConv
 import torch.nn.init as init
 import sys
 import scipy.io
 sys.path.append('/home/sv6234/ECGI/ECGI')
 from modules import *
-from IRDM.interpolated_torchdiffeq import odeint_chebyshev_func
+#from IRDM.interpolated_torchdiffeq import odeint_chebyshev_func
 from loss.dilate_loss import dilate_loss
 import pysdtw
 from collections import defaultdict
@@ -40,6 +40,9 @@ from utils import get_activation_len_new
 from functools import partial
 import pandas as pd
 import functorch
+import torch
+import torch.autograd.profiler as profiler
+
 
 device = 'cuda:0'
 
@@ -80,7 +83,8 @@ class HybridModel(L.LightningModule):
             self.contextEnc = ResNet1D(ResidualBlock, [2, 2, 2, 2], input_channels=396, num_classes=1)  #ContextEncoderLSTM_EGM()
         else:
             if use_resnet:
-                self.contextEnc = ResNet1D(ResidualBlock, [2, 2, 2, 2], input_channels=1862, num_classes=1)
+                #print("Using ResNet")
+                self.contextEnc = ResNet1D(ResidualBlock, [2, 2, 2, 2], input_channels=1119, num_classes=1)
             else:
                 self.contextEnc = ContextEncoderLSTM()
         #self.ode = APModel(self.S,self.par, self.batch_size,self.dimD, self.metaNet,self.adjoint)
@@ -90,12 +94,13 @@ class HybridModel(L.LightningModule):
         elif isNeural:
             pass
             #self.ode = APModelNeural(self.S,self.par, self.batch_size,self.dimD, self.metaNet)
-        t=torch.from_numpy(np.zeros(375)).to(torch.float32).to(device)
+        """t=torch.from_numpy(np.zeros(375)).to(torch.float32).to(device)
         val=0
         for i in range(375):
             t[i] = val
             val += 0.9
-        self.t = t
+        self.t = t"""
+        self.t=torch.from_numpy(np.linspace(0,350,117)).to(device)
         self.t.requires_grad=True
         self.alpha = 0.6#0.0005 #0.00005 0.6 for other model.
         self.gamma = 0.001
@@ -130,8 +135,8 @@ class HybridModel(L.LightningModule):
     def configure_optimizers(self) -> OptimizerLRScheduler:
         
         #optimizer = torch.optim.Adam(self.parameters(),lr=1e-2,weight_decay=0.0001)
-        optimizer = torch.optim.Adam([{'params':self.ode.parameters(),'weight_decay':0.0001, 'lr':1e-2},#3,#-2 for the main EGM param is 5e-3
-                                      {'params':self.contextEnc.parameters(),'weight_decay':0.0001, 'lr':1e-3}])#4#-3
+        optimizer = torch.optim.Adam([{'params':self.ode.parameters(),'weight_decay':0.0001, 'lr':1e-3},#3,#-2 for the main EGM param is 5e-3
+                                      {'params':self.contextEnc.parameters(),'weight_decay':0.0001, 'lr':1e-2}])#4#-3
         #optimizer.add_param_group({'params':self.metaNet.parameters(),'weight_decay':0.1, 'lr':1e-5})
         #lr_scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(
         #optimizer, T_0=t0, T_mult=2, eta_min=lr_min)
@@ -181,6 +186,7 @@ class HybridModel(L.LightningModule):
             TMP=self.generateTMP(UV,self.ode.par)
         else:
             TMP=odeint(self.ode, UV, self.t, method='dopri5')
+            
             #TMP=self.solver(self.ode,UV,self.t,method='dopri5')
             TMP = TMP[:,:,0:self.dimD]
             TMP = TMP.permute(1,0,2)       
@@ -376,9 +382,10 @@ class HybridModel(L.LightningModule):
         self.metaNet.register_full_backward_hook(hook_fn)"""
         t0 = time.time()
         
-        UV, y, k, a = train_batch #uv=bs*3724, y=bs*375*1862, k=bs*10*375*1862, a=32
+        UV, y, k, a, _ = train_batch #uv=bs*3724, y=bs*375*1862, k=bs*10*375*1862, a=32
         #torch.Size([16, 10, 375, 1862]) torch.Size([16])
         #k =k.squeeze(1)
+        #print(UV.shape,y.shape,k.shape,a.shape)
         if self.isSurfaceTMP:
             k=k.permute(0,1,3,2)
             k = k[:,:,self.surfaceIds,:].squeeze().permute(0,1,3,2)
@@ -387,39 +394,49 @@ class HybridModel(L.LightningModule):
         bs, num_k, seq_len, dim=k.size()
         #k = nn.Parameter(k, requires_grad=True)
         #par=torch.nn.Parameter(torch.zeros(bs,1).to(device))
-        if not self.isRecon:
-            k=k.view(-1,seq_len,dim)
-            if isinstance(self.contextEnc, (ContextEncoderLSTM_EGM,ContextEncoderLSTMSurface,ContextEncoderLSTM)):
-                out=self.contextEnc(k)# remove this for LSTM
-            else:
-                out=self.contextEnc(k.permute(0,2,1))
-            out=out.view(bs,-1)
-            out=torch.mean(out,dim=1)
-        else:
-            out=self.contextEnc(y)
-            out=out.squeeze()
-            
+        with profiler.profile(record_shapes=True, use_cuda=True, profile_memory=True) as prof_resnet:
+            with profiler.record_function("ResNet_Evaluation"):
+                if not self.isRecon:
+                    k=k.view(-1,seq_len,dim)
+                    if isinstance(self.contextEnc, (ContextEncoderLSTM_EGM,ContextEncoderLSTMSurface,ContextEncoderLSTM)):
+                        out=self.contextEnc(k)# remove this for LSTM
+                    else:
+                        #print(k.shape)
+                        out=self.contextEnc(k.permute(0,2,1))
+                    out=out.view(bs,-1)
+                    out=torch.mean(out,dim=1)
+                else:
+                    out=self.contextEnc(y)
+                    out=out.squeeze()
+        print(prof_resnet.key_averages().table(sort_by="self_cuda_memory_usage", row_limit=10))
         
        
         tn = time.time()
        
-        #print("--- %s seconds ---" % (time.time() - t0))
+        
          
         
         
         self.ode.par = out
-       
-        if not self.adjoint:
-            TMP=odeint(self.ode, UV, self.t, method='dopri5')
-            
-            #TMP=self.solver(self.ode,UV)
-            TMP = TMP[:,:,0:self.dimD]
-            TMP = TMP.permute(1,0,2)
-        else:
-            TMP=self.generateTMP(UV,self.ode.par)
+        with torch.autograd.profiler.profile(record_shapes=True, use_cuda=True, profile_memory=True) as prof:
+            # Your code to profile
+
+            with profiler.record_function("ODE_Solver"):
+                if not self.adjoint:
+                    #print(self.t)
+                    
+                    TMP=odeint(self.ode, UV, self.t, method='dopri5')
+                    self.ode.count = 0
+                    #TMP=self.solver(self.ode,UV)
+                    TMP = TMP[:,:,0:self.dimD]
+                    TMP = TMP.permute(1,0,2)
+                else:
+                    TMP=self.generateTMP(UV,self.ode.par)
+        print(prof.key_averages().table(sort_by="self_cuda_memory_usage", row_limit=10))
         loss1 = torch.tensor([0.0])    
         param_loss = F.mse_loss(out, a)
         loss_1 = F.mse_loss(TMP, y)
+        print("--- %s seconds ---" % (time.time() - t0))
         if self.outputSurface:
             loss1 = F.mse_loss(TMP.clone(), y.clone())
             TMP = TMP.permute(0,2,1)
@@ -434,7 +451,7 @@ class HybridModel(L.LightningModule):
                 #loss = self.get_weighted_loss(TMP, y, self.weights, a)
                 loss = F.mse_loss(TMP, y)
                 # Compute group-wise losses
-                loss_dict = self.get_loss_wrt_a(TMP, y, a)
+                """loss_dict = self.get_loss_wrt_a(TMP, y, a)
 
                 # Vectorized gradient computation
                 params = list(self.parameters())
@@ -461,7 +478,7 @@ class HybridModel(L.LightningModule):
                 #TODO write a function to update the weights for the next batch
                 
                 #self.update_loss_dict(loss_dict,train=True)
-                print("--- %s seconds ---" % (time.time() - t0))
+                print("--- %s seconds ---" % (time.time() - t0))"""
             
         #print(a,par)
         elif self.EGM_out:
@@ -538,7 +555,7 @@ class HybridModel(L.LightningModule):
         
         t0 = time.time()
         
-        UV, y, k, a = train_batch
+        UV, y, k, a,_ = train_batch
         
         if self.isSurfaceTMP:
             k=k.permute(0,1,3,2)
@@ -599,7 +616,7 @@ class HybridModel(L.LightningModule):
             y = y[:,self.surfaceIds,:].squeeze().permute(0,2,1)
         
         #print(a,par)
-        param_loss = F.mse_loss(a, out)
+        """param_loss = F.mse_loss(a, out)
         loss_dict=self.get_loss_wrt_a(TMP, y, a)
         for a_val in loss_dict:
             loss = loss_dict[a_val]
@@ -611,7 +628,7 @@ class HybridModel(L.LightningModule):
             self.val_grads[a_val] = [accum + grad.detach() for accum, grad in zip(self.val_grads[a_val], gradients)]
         for key in loss_dict:
             loss_dict[key] = loss_dict[key].detach()
-        self.update_loss_dict(loss_dict,train=False)
+        self.update_loss_dict(loss_dict,train=False)"""
         
         loss = F.mse_loss(TMP, y) 
         #loss,l_shape,l_temporal = dilate_loss(TMP,y,self.alpha,self.gamma,device)
@@ -645,13 +662,14 @@ class HybridModel(L.LightningModule):
     
     def test_step(self,train_batch, train_idx) -> STEP_OUTPUT:
         internal_nodes = []
-        for i in range(1862):
+        for i in range(self.dimD):
              if i not in self.surfaceIds:
                  internal_nodes.append(i)  
         torch.tensor(internal_nodes).to(device)
         t0 = time.time()
         
-        UV, y, k, a = train_batch
+        UV, y, k, a ,_= train_batch
+        print(UV.shape,y.shape,k.shape,a.shape)
         act_len_gt, start_gt, end_gt=get_activation_len_new(y)
         
         if self.isSurfaceTMP:

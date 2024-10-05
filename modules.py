@@ -13,9 +13,9 @@ import numpy as np
 #from torch_spline_conv import spline_conv
 from sklearn.neighbors import kneighbors_graph
 import matplotlib.pyplot as plt
-from torch_geometric.nn.conv import spline_conv
+#from torch_geometric.nn.conv import spline_conv
 from torch.nn import Linear, ReLU,Tanh
-from torch_geometric.nn import Sequential
+#from torch_geometric.nn import Sequential
 from lightning.pytorch.utilities import grad_norm
 #from pl_bolts.optimizers.lr_scheduler import LinearWarmupCosineAnnealingLR
 #import pytorch_warmup as warmup
@@ -24,9 +24,10 @@ from scipy.integrate import solve_ivp, LSODA
 import torchode as to
 from TorchDiffEqPack import  odesolve_adjoint
 #from ignite.handlers import create_lr_scheduler_with_warmup
-from torchdyn.core import NeuralODE
-from torch_geometric.nn.conv import GCNConv
+#from torchdyn.core import NeuralODE
+#from torch_geometric.nn.conv import GCNConv
 import torch.nn.init as init
+import torch.autograd.profiler as profiler
 
 
 device = 'cuda:0'
@@ -74,56 +75,68 @@ class APModelPhysics(nn.Module):
 class APModel_uv(nn.Module):
     def __init__(self, S, par, batch_size, dimD, nn,adjoint=False) -> None:
         super(APModel_uv, self).__init__()
-        self.S = S
+        self.S = S.t()
         self.par = par
         self.batch_size = batch_size
         self.dimD = dimD
         self.nn = nn
         self.retained_vars = {}
         self.adjoint = adjoint
+        self.count = 0
         #self.context = context
         #self.p = p
         
         
         
         
-    def forward(self,t,y):
-        #print(self.nn.parameters())
-        #with torch.enable_grad():
-        
-        #nn = self.nn(y[:,:self.dimD*2])
-        uv = torch.cat((y[:,0:self.dimD].unsqueeze(2),y[:,self.dimD:self.dimD*2].unsqueeze(2)),2).view(-1,2) 
-        u = torch.t(y[:,0:self.dimD])
-        v = torch.t(y[:,self.dimD:self.dimD*2])
-        
-         #bs,1862,2
-           
-        nn=self.nn(uv).view(self.batch_size,self.dimD,1).squeeze()   
-        k = 8
-        e = 0.01
-                        #print(self.S,u)
-        MK = torch.matmul(self.S, u)
-        
-        #nn=self.nn(torch.t(torch.cat((u,v))))
-        
-                            #print(nn.shape)
-            #nn=torch.nn.Parameter(nn)
-        
-        if self.adjoint:
-            par = y[:,self.dimD*2:].squeeze() 
-            pde1 = MK + k*u*(1-u)*(u-par) -torch.t(nn)
-            pde2 = -e*(k*u*(u-par-1)+v)
-                        #print(torch.cat((pde1.squeeze(), pde2.squeeze()), dim=0).shape)
-        #p=self.par.clone()
-            p = torch.zeros((self.batch_size,1)).to(device)
-        else:
-            pde1 = MK + k*u*(1-u)*(u-self.par) -torch.t(nn)
-            pde2 = -e*(k*u*(u-self.par-1)+v)
-        val=torch.t(torch.cat((pde1, pde2), dim=0))
-        if self.adjoint:
-            val = torch.cat((val, p), dim = 1)
-         
+    def forward(self, t, y):
+        with torch.autograd.profiler.record_function("APModel_uv_forward"):
+            batch_size = y.size(0)
+            self.dimD = y.size(1) // 2  # Assuming y has shape [batch_size, 2 * dimD]
+
+            # Reshape y to [batch_size, 2, dimD] and permute to [batch_size, dimD, 2]
+            y_reshaped = y.view(batch_size, 2, self.dimD).permute(0, 2, 1)
+
+            # Prepare uv for neural network input
+            uv = y_reshaped.contiguous().view(-1, 2)  # Shape: [batch_size * dimD, 2]
+
+            # Extract u and v without transposing
+            u = y_reshaped[:, :, 0]  # Shape: [batch_size, dimD]
+            v = y_reshaped[:, :, 1]  # Shape: [batch_size, dimD]
+
+            with torch.autograd.profiler.record_function("NeuralNetwork_Evaluation"):
+                # Compute nn_output
+                nn_output = self.nn(uv).view(batch_size, self.dimD)
+
+            k = 8
+            e = 0.01
+
+            # Compute MK without transposing u
+            MK = torch.matmul(u, self.S)  # S.t() is [dimD, dimD]
+
+            # Adjust the shape of self.par
+            if self.adjoint:
+                par = y[:, self.dimD * 2:].squeeze()
+                par = par.unsqueeze(1)  # Shape: [batch_size, 1]
+                pde1 = MK + k * u * (1 - u) * (u - par) - nn_output
+                pde2 = -e * (k * u * (u - par - 1) + v)
+                p = torch.zeros((batch_size, 1), device=y.device)
+            else:
+                par = self.par.unsqueeze(1)  # Shape: [batch_size, 1]
+                pde1 = MK + k * u * (1 - u) * (u - par) - nn_output
+                pde2 = -e * (k * u * (u - par - 1) + v)
+
+            # Concatenate pde1 and pde2 along the feature dimension
+            val = torch.cat((pde1, pde2), dim=1)
+
+            if self.adjoint:
+                val = torch.cat((val, p), dim=1)
+
+            self.count += 1
+
         return val
+
+
     
 
 class APModel(nn.Module):
@@ -478,7 +491,7 @@ class ResidualBlock(nn.Module):
         return out
 
 class ResNet1D(nn.Module):
-    def __init__(self, block, layers, input_channels=396, num_classes=128):
+    def __init__(self, block, layers, input_channels=1119, num_classes=128):
         super(ResNet1D, self).__init__()
         self.in_channels = 64
         self.conv1 = nn.Conv1d(input_channels, 64, kernel_size=7, stride=2, padding=3, bias=False)
